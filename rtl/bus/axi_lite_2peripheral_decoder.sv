@@ -213,10 +213,12 @@ module axi_lite_2peripheral_decoder (
 
             // if valid and ready, capture AW
             if (m_awvalid && m_awready) begin
+            `ifdef DEBUG_AXI_DECODER
                 $display("[%0t] DEC WRITE: accepted AW from MAIN  addr=%08h dest=%s",
          $time,
          m_awaddr,
          aw_sel_ram ? "RAM" : aw_sel_sha ? "SHA" : "UNKNOWN");
+         `endif
                 awaddr_reg <= m_awaddr;
                 awprot_reg <= m_awprot;
                 aw_have    <= 1'b1;
@@ -227,10 +229,12 @@ module axi_lite_2peripheral_decoder (
 
             // if valid and ready capture W
             if (m_wvalid && m_wready) begin
+            `ifdef DEBUG_AXI_DECODER
                 $display("[%0t] DEC WRITE: accepted W  from MAIN  data=%08h strb=%h",
          $time,
          m_wdata,
          m_wstrb);
+         `endif
                 wdata_reg <= m_wdata;
                 wstrb_reg <= m_wstrb;
                 w_have    <= 1'b1;
@@ -239,12 +243,14 @@ module axi_lite_2peripheral_decoder (
 
             // got the address and data? Start writing
         if (aw_have && w_have && !write_active) begin
+            `ifdef DEBUG_AXI_DECODER
             $display("[%0t] DEC WRITE: forwarding buffered transaction to %s addr=%08h data=%08h strb=%h",
                      $time,
                      aw_to_ram ? "RAM" : aw_to_sha ? "SHA" : "UNKNOWN",
                      awaddr_reg,
                      wdata_reg,
                      wstrb_reg);
+            `endif
         
             write_active   <= 1'b1;
             write_to_ram   <= aw_to_ram;
@@ -269,28 +275,32 @@ module axi_lite_2peripheral_decoder (
             end
             //debug
             // RAM accepted forwarded AW/W
-if (write_active && write_to_ram && ram_awvalid && ram_awready) begin
-    $display("[%0t] DEC WRITE: RAM accepted AW addr=%08h", $time, ram_awaddr);
-end
-
-if (write_active && write_to_ram && ram_wvalid && ram_wready) begin
-    $display("[%0t] DEC WRITE: RAM accepted W  data=%08h strb=%h", $time, ram_wdata, ram_wstrb);
-end
-
-if (write_active && write_to_sha && sha_awvalid && sha_awready) begin
-    $display("[%0t] DEC WRITE: SHA accepted AW addr=%08h", $time, sha_awaddr);
-end
-
-if (write_active && write_to_sha && sha_wvalid && sha_wready) begin
-    $display("[%0t] DEC WRITE: SHA accepted W  data=%08h strb=%h", $time, sha_wdata, sha_wstrb);
-end
+`ifdef DEBUG_AXI_DECODER
+    if (write_active && write_to_ram && ram_awvalid && ram_awready) begin
+        $display("[%0t] DEC WRITE: RAM accepted AW addr=%08h", $time, ram_awaddr);
+    end
+    
+    if (write_active && write_to_ram && ram_wvalid && ram_wready) begin
+        $display("[%0t] DEC WRITE: RAM accepted W  data=%08h strb=%h", $time, ram_wdata, ram_wstrb);
+    end
+    
+    if (write_active && write_to_sha && sha_awvalid && sha_awready) begin
+        $display("[%0t] DEC WRITE: SHA accepted AW addr=%08h", $time, sha_awaddr);
+    end
+    
+    if (write_active && write_to_sha && sha_wvalid && sha_wready) begin
+        $display("[%0t] DEC WRITE: SHA accepted W  data=%08h strb=%h", $time, sha_wdata, sha_wstrb);
+    end
+`endif
 //end debug
             //when we accept BRESP, finish up the transaction
 
         if (m_bvalid && m_bready) begin
-                                $display("[%0t] DEC WRITE: MAIN accepted B response from %s",
+            `ifdef DEBUG_AXI_DECODER
+                     $display("[%0t] DEC WRITE: MAIN accepted B response from %s",
                      $time,
                      write_to_ram ? "RAM" : write_to_sha ? "SHA" : "UNKNOWN");
+             `endif
             write_active   <= 1'b0;
             write_to_ram   <= 1'b0;
             write_to_sha   <= 1'b0;
@@ -387,10 +397,12 @@ end
             // after AR handshake, remember which peripheral we selected
 
             if (m_arvalid && m_arready) begin
-                $display("[%0t] DEC READ : accepted AR from MAIN addr=%08h dest=%s",
-             $time,
-             m_araddr,
-             ar_sel_ram ? "RAM" : ar_sel_sha ? "SHA" : "UNKNOWN");
+            `ifdef DEBUG_AXI_DECODER
+                    $display("[%0t] DEC READ : accepted AR from MAIN addr=%08h dest=%s",
+                 $time,
+                 m_araddr,
+                 ar_sel_ram ? "RAM" : ar_sel_sha ? "SHA" : "UNKNOWN");
+             `endif
                 read_active   <= 1'b1;
                 read_from_ram <= ar_sel_ram;
                 read_from_sha <= ar_sel_sha;
@@ -399,10 +411,12 @@ end
             // after R handshake, clear transaction and finish
 
             if (m_rvalid && m_rready) begin
-                $display("[%0t] DEC READ : MAIN accepted R data=%08h from %s",
-             $time,
-             m_rdata,
-             read_from_ram ? "RAM" : read_from_sha ? "SHA" : "UNKNOWN");
+            `ifdef DEBUG_AXI_DECODER
+                    $display("[%0t] DEC READ : MAIN accepted R data=%08h from %s",
+                 $time,
+                 m_rdata,
+                 read_from_ram ? "RAM" : read_from_sha ? "SHA" : "UNKNOWN");
+             `endif
                 read_active   <= 1'b0;
                 read_from_ram <= 1'b0;
                 read_from_sha <= 1'b0;

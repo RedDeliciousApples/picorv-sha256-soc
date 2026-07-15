@@ -163,8 +163,10 @@ module sha256_axi_lite (
                 s_axi_rdata  <= reg_rd_data;
                 s_axi_rvalid <= 1'b1;
                 //debug
+                `ifdef DEBUG_SHA_AXI
                 $display("SHA AXI READ offset=%02h data=%08h time=%0t",
          s_axi_araddr[7:0], reg_rd_data, $time);
+                `endif
             end
         end
     end
