@@ -35,3 +35,4 @@ picorv32/
 # OS/editor
 .DS_Store
 .vscode/
+*:Zone.Identifier
