@@ -1,17 +1,21 @@
 # Memory map
-0x0000_0000 - 0x0000_FFFF   64 KiB AXI RAM
-0x1000_0000 - 0x1000_00FF   SHA-256 peripheral
+| Memory Region | Purpose |
+|----------|----------------------:|
+|0x0000_0000 - 0x0000_FFFF |  64 KiB AXI RAM |
+|0x1000_0000 - 0x1000_00FF |  SHA-256 peripheral |
 # SHA register table
-0x00 CTRL
-0x04 STATUS
-0x08-0x44 BLOCK0-BLOCK15
-0x80-0x9C DIGEST0-DIGEST7
+| Register | Purpose |
+|----------|----------------------:|
+|0x00 | CTRL |
+|0x04  | STATUS |
+|0x08-0x44  | BLOCK0-BLOCK15 |
+|0x80-0x9C  | DIGEST0-DIGEST7 |
 
 # Block Word Ordering
 
-The SHA-256 accelerator accepts **one 512-bit message block** as input. The block is divided into **16 memory-mapped 32-bit registers** (`BLOCK0` through `BLOCK15`).
+The SHA-256 accelerator accepts one 512-bit message block as input, and it's then divided into 16 registers (`BLOCK0` through `BLOCK15`).
 
-Internally, the registers are packed into the 512-bit input block as shown below:
+Internally, the registers are organized in the 512-bit block like this:
 
 | Register | Bits of 512-bit Block |
 |----------|----------------------:|
@@ -32,7 +36,7 @@ Internally, the registers are packed into the 512-bit input block as shown below
 | `BLOCK14` | `[63:32]` |
 | `BLOCK15` | `[31:0]` |
 
-This ordering follows the SHA-256 specification, where each 32-bit word is interpreted in **big-endian** order.
+Each 32-bit word uses big-endian order.
 
 ---
 
