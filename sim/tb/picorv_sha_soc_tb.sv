@@ -26,14 +26,14 @@ module picorv_sha_soc_tb;
     logic clk;
     logic reset_n;
     logic trap;
-
+    //timestampts (longint for precision)
     longint unsigned cycle_count;
     longint unsigned first_block_write_cycle;
     longint unsigned ctrl_write_cycle;
     longint unsigned accelerator_start_cycle;
     longint unsigned accelerator_done_cycle;
     longint unsigned final_digest_cycle;
-
+    //flags, to only record each event once
     bit first_block_write_seen;
     bit ctrl_write_seen;
     bit accelerator_start_seen;
@@ -45,8 +45,7 @@ module picorv_sha_soc_tb;
         .reset_n (reset_n),
         .trap    (trap)
     );
-    // Count completed clock cycles after reset is released and mark MMIO writes
-    // at the register interface where they take effect.
+
     always @(posedge clk) begin
         if (!reset_n) begin
             cycle_count              = 0;
@@ -62,13 +61,13 @@ module picorv_sha_soc_tb;
             test_finished             = 1'b0;
         end else begin
             cycle_count = cycle_count + 1;
-
+            //first write to the sha message block
             if (!first_block_write_seen && dut.sha.reg_wr_en &&
                 dut.sha.reg_wr_addr == 8'h08) begin
                 first_block_write_cycle = cycle_count;
                 first_block_write_seen  = 1'b1;
             end
-
+            // start bit write in the control register
             if (!ctrl_write_seen && dut.sha.reg_wr_en &&
                 dut.sha.reg_wr_addr == 8'h00 && dut.sha.reg_wr_data[0]) begin
                 ctrl_write_cycle = cycle_count;
@@ -77,15 +76,14 @@ module picorv_sha_soc_tb;
         end
     end
 
-    // These transitions occur after the active clock edge, so cycle_count
-    // already names the cycle in which the accelerator changed state.
+    //sha accelerator starts working here
     always @(posedge dut.sha.reg_if_inst.busy) begin
         if (reset_n && !accelerator_start_seen) begin
             accelerator_start_cycle = cycle_count;
             accelerator_start_seen  = 1'b1;
         end
     end
-
+    //sha accelerator finishes working
     always @(posedge dut.sha.reg_if_inst.done) begin
         if (reset_n && !accelerator_done_seen) begin
             accelerator_done_cycle = cycle_count;
@@ -104,7 +102,7 @@ module picorv_sha_soc_tb;
             dut.ram.memory[32'h114 >> 2] == 32'h649b934c &&
             dut.ram.memory[32'h118 >> 2] == 32'ha495991b &&
             dut.ram.memory[32'h11C >> 2] == 32'h7852b855) begin
-
+            //result appears in ram at this time
             test_finished      = 1'b1;
             final_digest_cycle = cycle_count;
 
@@ -146,7 +144,7 @@ module picorv_sha_soc_tb;
 
     always @(posedge clk) begin
         if (trap) begin
-            $display("[%0t] PicoRV32 trap asserted", $time);
+            $display("[%0t] PicoRV32 trap/interrupt asserted, stopping", $time);
             $finish;
         end
     end
