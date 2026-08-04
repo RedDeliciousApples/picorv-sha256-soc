@@ -13,6 +13,13 @@ Tests that were written as the project progressed, to check that the SoC works c
 | `basic_comms_test.sv` | Tests R/W for SHA registers at offsets 0x08 and 0x0C | - |Visual inspection |
 
 All tests pass as of 7/28/2026
+
+# Performance measurements
+
+`sha256_top_tb.sv` and `picorv_sha_soc_tb.sv` emit cycle counts using lines that
+begin with `MEASURE`. See [PERFORMANCE.md](PERFORMANCE.md) for the current
+baseline and the Vivado batch command.
+
 # Known possible regressions
 
 1. SHA register writes may become visible too late. This is hopefully addressed by the `picorv_sha_soc_tb.sv` test.

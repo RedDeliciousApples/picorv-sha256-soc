@@ -53,6 +53,8 @@ There's a copy of this in [instructions_for_compiling.md](firmware/instructions_
 ## Testing
 You can see the current tests in [the TESTING.md file](docs/TESTING.md). Note that you need to check some of them yourself, since they're still a work in progress
 
+Cycle-level accelerator and end-to-end baselines are recorded in [PERFORMANCE.md](docs/PERFORMANCE.md).
+
 ## Limitations
 - Only one 512-bit block at a time.
 - Padding is done in software for now

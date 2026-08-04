@@ -33,6 +33,7 @@ module sha256_block_top_b2b_tb;
     logic [255:0] digest;
 
     integer timeout_count;
+    integer measured_latency_cycles;
 
     localparam [255:0] SHA256_EMPTY_EXPECTED =
         256'he3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855;
@@ -69,8 +70,11 @@ module sha256_block_top_b2b_tb;
 
             while (done !== 1'b1 && timeout_count < 200) begin
                 @(posedge clk);
+                #1;
                 timeout_count = timeout_count + 1;
             end
+
+            measured_latency_cycles = timeout_count;
 
             if (timeout_count >= 200) begin
                 $display("FAIL: timeout waiting for done");
@@ -80,7 +84,6 @@ module sha256_block_top_b2b_tb;
                 $finish;
             end
 
-            #1;
         end
     endtask
 
@@ -91,6 +94,8 @@ module sha256_block_top_b2b_tb;
             $display("--- %0s ---", test_name);
             $display("Expected: %064h", expected);
             $display("Got:      %064h", digest);
+            $display("MEASURE sha_block.latency_cycles test=\"%0s\" value=%0d",
+                     test_name, measured_latency_cycles);
 
             if (digest !== expected) begin
                 $display("FAIL: %0s digest mismatch", test_name);
@@ -108,6 +113,7 @@ module sha256_block_top_b2b_tb;
 
         // Hold reset for a few cycles.
         repeat (5) @(posedge clk);
+        @(negedge clk);
         reset_n = 1'b1;
 
         @(posedge clk);
