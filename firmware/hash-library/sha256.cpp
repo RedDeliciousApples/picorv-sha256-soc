@@ -59,7 +59,7 @@ namespace
 
   inline uint32_t swap(uint32_t x)
   {
-#if defined(__GNUC__) || defined(__clang__)
+#if (defined(__GNUC__) || defined(__clang__)) && !defined(__riscv)
     return __builtin_bswap32(x);
 #endif
 #ifdef MSC_VER

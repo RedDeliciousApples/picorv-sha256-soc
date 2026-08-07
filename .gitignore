@@ -28,6 +28,7 @@ webtalk*.log
 *.o
 *.map
 *.dump
+/firmware/hash-library/build/
 
 # Toolchains / external builds
 riscv-gnu-toolchain*/
