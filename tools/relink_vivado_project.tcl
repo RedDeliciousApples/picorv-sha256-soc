@@ -34,7 +34,9 @@ set simulation_sources [list \
     [file join $repo_root sim tb basic_comms_test.sv] \
     [file join $repo_root sim tb axi_tb.sv] \
     [file join $repo_root sim tb picorv_sha_soc_tb.sv] \
-    [file join $repo_root sim mem memory.mem]]
+    [file join $repo_root sim tb picorv_software_sha_tb.sv] \
+    [file join $repo_root sim mem memory.mem] \
+    [file join $repo_root sim mem software_sha.mem]]
 
 foreach source_file [concat $design_sources $simulation_sources] {
     if {![file exists $source_file]} {

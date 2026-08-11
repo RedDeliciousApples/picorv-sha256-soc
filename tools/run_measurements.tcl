@@ -22,6 +22,7 @@ proc run_measurement {simulation_top} {
 
 run_measurement sha256_block_top_b2b_tb
 run_measurement picorv_sha_soc_tb
+run_measurement picorv_software_sha_tb
 
 set_property top picorv_sha_soc_tb [get_filesets sim_1]
 close_project

@@ -21,7 +21,9 @@
 
 
 
-module picorv_sha_soc (
+module picorv_sha_soc #(
+    parameter MEM_FILE = "memory.mem"
+) (
     input  logic clk,
     input  logic reset_n,
     output logic trap
@@ -265,7 +267,7 @@ module picorv_sha_soc (
 
     axi_lite_ram #(
         .MEM_WORDS (16384),
-        .MEM_FILE  ("memory.mem")
+        .MEM_FILE  (MEM_FILE)
     ) ram (
         .s_axi_aclk     (clk),
         .s_axi_aresetn  (reset_n),

@@ -1,7 +1,27 @@
 # PicoRV32 SHA-256 SoC
 
 ## Overview
-This is a PicoRV32-based RV32I SoC with a memory-mapped SHA-256 peripheral, using the AXI-4 Lite interface, mainly made to help me learn AXI. It hasn't been optimized for performance yet, but it can process a 512-bit padded message each operation.
+This is a PicoRV32-based RV32I SoC with a memory-mapped SHA-256 peripheral, using the AXI-4 Lite interface, mainly made to help me learn AXI. It can process one 512-bit padded message block per operation.
+
+## Performance Result
+
+In Vivado behavioral simulation, hashing the empty message and storing its
+verified digest took:
+
+| PicoRV32 path | End-to-end cycles | Time at an assumed 100 MHz |
+|---|---:|---:|
+| RV32I software SHA-256 | 30,169 | 301.69 us |
+| AXI-Lite SHA-256 accelerator | 654 | 6.54 us |
+
+That is a **46.13x end-to-end speedup**, or **97.83% fewer cycles**, for the
+accelerated path on this PicoRV32 SoC.
+
+This is a cycle-count comparison inside the simulated SoC. It does not mean
+Vivado simulation hashes faster than a desktop CPU, and 100 MHz is illustrative
+until synthesis and timing analysis establish a real clock frequency. The
+accelerator also currently receives an already padded block, while the software
+library performs its own padding. See [the full performance methodology and
+results](docs/PERFORMANCE.md).
 
 ![Level 1 diagram](docs/images/level1diagram.png)
 
