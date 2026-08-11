@@ -1,14 +1,18 @@
 #include "sha256.h"
 
 static volatile uint32_t* const output =
-    (volatile uint32_t*)0x00000100u;
+    (volatile uint32_t*)0x00004000u;
 static volatile uint32_t* const done =
-    (volatile uint32_t*)0x00000120u;
+    (volatile uint32_t*)0x00004020u;
+static volatile uint32_t* const started =
+    (volatile uint32_t*)0x00004024u;
 
 int main()
 {
     //static const unsigned char message[] = {'a', 'b', 'c'};
     unsigned char digest[SHA256::HashBytes];
+
+    *started = 1;
 
     SHA256 sha;
     //commenting out, to try an empty string for now

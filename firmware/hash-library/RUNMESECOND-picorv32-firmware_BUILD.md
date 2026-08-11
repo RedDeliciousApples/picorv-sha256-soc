@@ -45,17 +45,15 @@ riscv64-unknown-elf-size build/software_sha.elf
 riscv64-unknown-elf-nm -C -u build/software_sha.elf
 ```
 
-You now have a `.mem` file! Copy it somewhere conveinient, and you can start using Vivado:
+You now have a `.mem` file! Copy it into the software testbench's memory file:
 
 ```bash
-cp build/memory.mem ../../sim/mem/memory.mem
+cp build/memory.mem ../../sim/mem/software_sha.mem
 ```
 
 The current `main.cpp` hashes the empty input, matching the digest expected by
-`sim/tb/picorv_sha_soc_tb.sv`. 
+`sim/tb/picorv_software_sha_tb.sv`. The accelerator testbench continues to use
+`sim/mem/memory.mem`.
 
-NOTE TO SELF: Increase that testbench timeout before running
-the software implementation, bcuz 5,000 cycles is for the accelerator. software will be slower.
-
-`-Wno-array-bounds` is because GCC doesn't like writes to low RAM addresses like `0x100` and `0x120`. All other enabled warnings remain
-errors.
+`-Wno-array-bounds` is because GCC doesn't like writes to fixed bare-metal RAM
+addresses. All other enabled warnings remain errors.
