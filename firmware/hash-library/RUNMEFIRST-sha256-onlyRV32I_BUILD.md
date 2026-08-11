@@ -100,8 +100,8 @@ riscv64-unknown-elf-g++ \
   -o build/sha256_rv32i.o
 ```
 
-It then checks the object with `riscv64-unknown-elf-nm -C -u`. Any unresolved
-symbol makes the build fail. Output goes in the `build/` directory.
+You should run `riscv64-unknown-elf-nm -C -u` and check if there are unresolved symbols. If there are some unresolved symbols, that's bad. You'll have to investigate.
+Output goes in the `build/` directory.
 
 ## Bonus reading
 ```
