@@ -13,15 +13,15 @@ verified digest took:
 | RV32I software SHA-256 | 30,169 | 301.69 us |
 | AXI-Lite SHA-256 accelerator | 654 | 6.54 us |
 
-That is a **46.13x end-to-end speedup**, or **97.83% fewer cycles**, for the
-accelerated path on this PicoRV32 SoC.
+That is a **46.13x speedup**, or **97.83% fewer cycles**, for the
+SHA256 accelerator on this PicoRV32 SoC.
 
-This is a cycle-count comparison inside the simulated SoC. It does not mean
-Vivado simulation hashes faster than a desktop CPU, and 100 MHz is illustrative
-until synthesis and timing analysis establish a real clock frequency. The
-accelerator also currently receives an already padded block, while the software
-library performs its own padding. See [the full performance methodology and
-results](docs/PERFORMANCE.md).
+This is a comparison of cycle count in simulation. It does NOT mean
+Vivado simulation can compute SHA hashes faster than a desktop CPU,
+ and 100 MHz is only illustrative until I can find the real frequency with timing analysis.
+Also, the accelerator gets an already padded block, but the software library does its own padding. See [methodology and results](docs/PERFORMANCE.md).
+
+
 
 ![Level 1 diagram](docs/images/level1diagram.png)
 
