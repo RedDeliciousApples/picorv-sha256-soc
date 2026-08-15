@@ -23,9 +23,7 @@ module axi_lite_2peripheral_decoder (
     input logic clk,
     input logic reset_n,
 
-    // ============================================================
-    // Main side: from PicoRV32 or testbench
-    // ============================================================
+    //FROM SoC/picorv32/main side
 
     // Write address channel
     input  logic [31:0] m_awaddr,
@@ -54,9 +52,9 @@ module axi_lite_2peripheral_decoder (
     output logic        m_rvalid,
     input  logic        m_rready,
 
-    // ============================================================
-    // Peripheral 0: RAM
-    // ============================================================
+    //--------
+    //first peripheral: RAM
+    //--------
 
     output logic [31:0] ram_awaddr,
     output logic [2:0]  ram_awprot,
@@ -80,9 +78,9 @@ module axi_lite_2peripheral_decoder (
     input  logic        ram_rvalid,
     output logic        ram_rready,
 
-    // ============================================================
-    // Peripheral 1: SHA
-    // ============================================================
+    //-------------
+    //second peripheral: SHA
+    //---------------
 
     output logic [31:0] sha_awaddr,
     output logic [2:0]  sha_awprot,
@@ -140,9 +138,9 @@ module axi_lite_2peripheral_decoder (
     assign m_awready = !aw_have && !write_active && (aw_sel_ram || aw_sel_sha);
     assign m_wready  = !w_have  && !write_active;
 
-    // ============================================================
-    // Forward buffered write transaction to selected peripheral
-    // ============================================================
+    //--------------
+    // send write txransaction to selected peripheral
+    //---------------
 
     always_comb begin
         // by default, send addresses / data, but don't set VALID
@@ -185,9 +183,9 @@ module axi_lite_2peripheral_decoder (
         end
     end
 
-    // ============================================================
-    // Write state machine / tracking
-    // ============================================================
+    // ----------
+    // Write state machine
+    // ----------
 
     always_ff @(posedge clk or negedge reset_n) begin
         if (!reset_n) begin
@@ -328,9 +326,9 @@ module axi_lite_2peripheral_decoder (
     end
  end
 
-    // ============================================================
-    // Read-side state
-    // ============================================================
+    // ---------
+    // read-side state
+    // --------
 
     logic read_active;
     logic read_from_ram;
@@ -383,9 +381,9 @@ module axi_lite_2peripheral_decoder (
     end
     
 
-    // ============================================================
-    // Read state tracking
-    // ============================================================
+    // --------------
+    // Read state machine
+    // -----------
 
     always_ff @(posedge clk or negedge reset_n) begin
         if (!reset_n) begin
