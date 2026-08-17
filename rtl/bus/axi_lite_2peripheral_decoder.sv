@@ -1,19 +1,16 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
+// Engineer: Christian Saliba
 // Create Date: 06/17/2026 03:33:57 PM
-// Design Name: 
-// Module Name: axi_lite_2slave_decoder
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
+// Design Name: AXI Lite 2 peripheral/slave decoder
+// Module Name: axi_lite_2peripheral_decoder
+// Tool Versions: Vivado 2025.2
 // Description: 
 // An AXI decoder to 2 peripherals. 
 // Dependencies: 
-// 
+// N/A
 // Revision:
+// Revisiom 0.02 - File renamed to axi_lite_2peripheral_decoder.sv, was axi_lite_2slave_decoder.sv
 // Revision 0.01 - File Created
 // Additional Comments:
 // 
@@ -111,9 +108,9 @@ module axi_lite_2peripheral_decoder (
 
     wire ar_sel_ram = (m_araddr[31:16] == 16'h0000);
     wire ar_sel_sha = (m_araddr[31:16] == 16'h1000);
-    // ============================================================
+    // -----
     // Write-side buffers
-    // ============================================================
+    // -----
 
     logic [31:0] awaddr_reg;
     logic [2:0]  awprot_reg;
@@ -271,26 +268,30 @@ module axi_lite_2peripheral_decoder (
                 aw_have <= 1'b0;
                 w_have  <= 1'b0;
             end
+
+            
             //debug
             // RAM accepted forwarded AW/W
-`ifdef DEBUG_AXI_DECODER
-    if (write_active && write_to_ram && ram_awvalid && ram_awready) begin
-        $display("[%0t] DEC WRITE: RAM accepted AW addr=%08h", $time, ram_awaddr);
-    end
-    
-    if (write_active && write_to_ram && ram_wvalid && ram_wready) begin
-        $display("[%0t] DEC WRITE: RAM accepted W  data=%08h strb=%h", $time, ram_wdata, ram_wstrb);
-    end
-    
-    if (write_active && write_to_sha && sha_awvalid && sha_awready) begin
-        $display("[%0t] DEC WRITE: SHA accepted AW addr=%08h", $time, sha_awaddr);
-    end
-    
-    if (write_active && write_to_sha && sha_wvalid && sha_wready) begin
-        $display("[%0t] DEC WRITE: SHA accepted W  data=%08h strb=%h", $time, sha_wdata, sha_wstrb);
-    end
-`endif
-//end debug
+        `ifdef DEBUG_AXI_DECODER
+            if (write_active && write_to_ram && ram_awvalid && ram_awready) begin
+                $display("[%0t] DEC WRITE: RAM accepted AW addr=%08h", $time, ram_awaddr);
+            end
+            
+            if (write_active && write_to_ram && ram_wvalid && ram_wready) begin
+                $display("[%0t] DEC WRITE: RAM accepted W  data=%08h strb=%h", $time, ram_wdata, ram_wstrb);
+            end
+            
+            if (write_active && write_to_sha && sha_awvalid && sha_awready) begin
+                $display("[%0t] DEC WRITE: SHA accepted AW addr=%08h", $time, sha_awaddr);
+            end
+            
+            if (write_active && write_to_sha && sha_wvalid && sha_wready) begin
+                $display("[%0t] DEC WRITE: SHA accepted W  data=%08h strb=%h", $time, sha_wdata, sha_wstrb);
+            end
+        `endif
+        //end debug
+
+
             //when we accept BRESP, finish up the transaction
 
         if (m_bvalid && m_bready) begin
