@@ -1,22 +1,20 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
-// Engineer: 
+// Engineer: Christian Saliba
 // 
 // Create Date: 06/16/2026 09:13:34 PM
-// Design Name: 
+// Design Name: axi_lite_ram
 // Module Name: axi_lite_ram
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
+// Tool Versions: Vivado 2025.2
 // Description: 
-// 
+// 16384 word RAM that works over AXI 4 Lite, uses 14 bit addresses
 // Dependencies: 
-// 
-// Revision:
+// None
+// Revision: 0.02 - added additional comments
 // Revision 0.01 - File Created
 // Additional Comments:
-// 
+// This document still uses master/slave terminology. Maybe change that to main/peripheral?
 //////////////////////////////////////////////////////////////////////////////////
 
 
@@ -26,10 +24,10 @@ module axi_lite_ram #(
     parameter MEM_FILE  = "memory.mem"
 )(
     input  logic        s_axi_aclk,
-    input  logic        s_axi_aresetn,
+    input  logic        s_axi_aresetn, //aresetn = async reset, active low
 
     // Write address channel
-    input  logic [31:0] s_axi_awaddr,
+    input  logic [31:0] s_axi_awaddr, //that is, slave AXI AW address
     input  logic [2:0]  s_axi_awprot,
     input  logic        s_axi_awvalid,
     output logic        s_axi_awready,
@@ -64,9 +62,7 @@ module axi_lite_ram #(
                  memory[0], memory[1], memory[2], memory[3]);
     end
 
-    // ------------------------------------------------------------
-    // Write bookkeeping
-    // ------------------------------------------------------------
+   // write channel
 
     logic [31:0] awaddr_reg;
     logic        awaddr_valid;
@@ -75,13 +71,13 @@ module axi_lite_ram #(
     logic [3:0]  wstrb_reg;
     logic        wdata_valid;
 
-    wire [13:0] write_word_addr = awaddr_reg[15:2];
+    wire [13:0] write_word_addr = awaddr_reg[15:2]; // 14 bits which is 0 up to 16383
     wire [13:0] read_word_addr  = s_axi_araddr[15:2];
 
     assign s_axi_awready = !awaddr_valid;
     assign s_axi_wready  = !wdata_valid;
 
-    always_ff @(posedge s_axi_aclk or negedge s_axi_aresetn) begin
+    always_ff @(posedge s_axi_aclk or negedge s_axi_aresetn) begin 
         if (!s_axi_aresetn) begin
             awaddr_reg   <= 32'd0;
             awaddr_valid <= 1'b0;
@@ -93,25 +89,25 @@ module axi_lite_ram #(
             s_axi_bvalid <= 1'b0;
         end else begin
 
-            // Capture write address
+            // get write address
             if (s_axi_awvalid && s_axi_awready) begin
                 awaddr_reg   <= s_axi_awaddr;
                 awaddr_valid <= 1'b1;
             end
 
-            // Capture write data
+            // get write data
             if (s_axi_wvalid && s_axi_wready) begin
                 wdata_reg   <= s_axi_wdata;
                 wstrb_reg   <= s_axi_wstrb;
                 wdata_valid <= 1'b1;
             end
 
-            // Clear write response
+            // clear write response/bvalid
             if (s_axi_bvalid && s_axi_bready) begin
                 s_axi_bvalid <= 1'b0;
             end
 
-            // Once both address and data have arrived, write RAM
+            // write ram when we have address and data and bvalid is clear
             if (awaddr_valid && wdata_valid && !s_axi_bvalid) begin
 
                 if (awaddr_reg[31:16] == 16'h0000) begin
@@ -129,9 +125,9 @@ module axi_lite_ram #(
         end
     end
 
-    // ------------------------------------------------------------
-    // Read channel
-    // ------------------------------------------------------------
+
+    // read channel
+
 
     assign s_axi_arready = !s_axi_rvalid;
 
@@ -141,16 +137,17 @@ module axi_lite_ram #(
             s_axi_rdata  <= 32'd0;
         end else begin
 
-            // Clear read response
+            // clear read response
             if (s_axi_rvalid && s_axi_rready) begin
                 s_axi_rvalid <= 1'b0;
             end
 
-            // Accept read address and return memory word
+            // accept read address and return memory word
             if (s_axi_arvalid && s_axi_arready) begin
-                if (s_axi_araddr[31:16] == 16'h0000) begin
+                if (s_axi_araddr[31:16] == 16'h0000) begin //first 16 bits being empty implies a 14 bit address
                     s_axi_rdata <= memory[read_word_addr];
                 end else begin
+                    // no 14 bit address? return 0
                     s_axi_rdata <= 32'd0;
                 end
 
