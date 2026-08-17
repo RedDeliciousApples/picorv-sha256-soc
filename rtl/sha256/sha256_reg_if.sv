@@ -1,19 +1,22 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Engineer: Christian Saliba
 // 
 // Create Date: 06/16/2026 02:52:12 PM
-// Design Name: 
+// Design Name: SHA256 register interface
 // Module Name: sha256_reg_if
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
+// Tool Versions: Vivado 2025.2
 // Description: 
-// 
+// A register interface for the SHA256 module as a whole. 
+// Register	    Purpose
+// 0x00	        CTRL
+// 0x04	        STATUS
+// 0x08-0x44	BLOCK0-BLOCK15
+// 0x80-0x9C	DIGEST0-DIGEST7
 // Dependencies: 
-// 
+// sha256_top.sv
 // Revision:
+// Revision 0.02 - Add register purpose table (8/17/2026)
 // Revision 0.01 - File Created
 // Additional Comments:
 // 

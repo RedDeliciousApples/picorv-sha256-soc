@@ -1,25 +1,25 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
-// Engineer: 
+// Engineer: Christian Saliba
 // 
 // Create Date: 05/28/2026 09:34:29 PM
 // Design Name: 
 // Module Name: sha256_scheduler
 // Project Name: 
 // Target Devices: 
-// Tool Versions: 
+// Tool Versions: Vivado 2025.2
 // Description: 
-// 
-// Dependencies: 
-// 
+// Takes a 512 bit block and formats it appropriately for sha256_core.sv
+// Dependencies: sha256_core.sv
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-//thanks to https://github.com/TuanSuyTu/SHA-256-Unfolding-Design
+// thanks to https://github.com/TuanSuyTu/SHA-256-Unfolding-Design
 // and https://www.controlpaths.com/2025/03/30/crypto-fpga/
+// and https://web.archive.org/web/20130526224224/https://csrc.nist.gov/groups/STM/cavp/documents/shs/sha256-384-512.pdf
+//////////////////////////////////////////////////////////////////////////////////
+
 
 module sha256_scheduler (
     input  logic        clk,

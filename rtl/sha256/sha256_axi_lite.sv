@@ -1,17 +1,15 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
-// Engineer: 
+// Engineer: Christian Saliba
 // 
 // Create Date: 06/16/2026 03:19:49 PM
-// Design Name: 
+// Design Name: AXI-4 Lite interface
 // Module Name: sha256_axi_lite
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
+// Tool Versions: Vivado 2025.2
 // Description: 
-// 
-// Dependencies: 
+// An AXI 4 lite interface, so the register interface in sha256_reg_if.sv can speak AXI
+// Dependencies: sha256_reg_if
 // 
 // Revision:
 // Revision 0.01 - File Created

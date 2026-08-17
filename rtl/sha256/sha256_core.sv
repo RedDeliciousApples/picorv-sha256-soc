@@ -1,24 +1,21 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Engineer: Christian Saliba
 // 
 // Create Date: 05/26/2026 07:58:21 PM
-// Design Name: 
+// Design Name: sha256_core
 // Module Name: sha256_core
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
+// Tool Versions: Vivado 2025.2
 // Description: 
-// 
-// Dependencies: 
-// 
+// The core logic to perform one round of SHA256 compression
+// Dependencies: Technically none, but this makes more sense as part of the sha256 foler
+//               and included files
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
 // a good chunk of this module is taken from the pseudocode at https://en.wikipedia.org/wiki/SHA-2
+//////////////////////////////////////////////////////////////////////////////////
+
 
 module sha256_core(
     input logic clk,

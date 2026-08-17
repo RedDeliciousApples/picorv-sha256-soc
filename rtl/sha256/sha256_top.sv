@@ -1,18 +1,15 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Engineer: Christian Saliba
 // 
 // Create Date: 06/06/2026 06:25:19 PM
-// Design Name: 
+// Design Name: sha256_block_top
 // Module Name: sha256_top
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
+// Tool Versions: Vivado 2025.2
 // Description: 
-// 
+// This module combines the sha256 core and scheduler to fully process a 512 bit block
 // Dependencies: 
-// 
+// sha256_core.sv, sha256_scheduler.sv
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
@@ -67,9 +64,9 @@ logic [5:0] round_count;
     logic [31:0] h6_out;
     logic [31:0] h7_out;
 
-    // ------------------------------------------------------------
+
     // Output packing
-    // ------------------------------------------------------------
+
 
     assign digest = {
         h0_out, h1_out, h2_out, h3_out,
@@ -84,9 +81,9 @@ logic [5:0] round_count;
     
     assign ready = (current_state == IDLE) || (current_state == DONE);
 
-    // ------------------------------------------------------------
+
     // Scheduler control
-    // ------------------------------------------------------------
+
 
     assign sched_load = (current_state == LOAD);
     assign sched_next = (current_state == RUN);
@@ -101,9 +98,9 @@ logic [5:0] round_count;
         .w_out   (sched_w)
     );
 
-    // ------------------------------------------------------------
+
     // K constant ROM
-    // ------------------------------------------------------------
+
 
     always_comb begin
         case (round_count)
@@ -175,9 +172,9 @@ logic [5:0] round_count;
         endcase
     end
 
-    // ------------------------------------------------------------
+
     // Compression core
-    // ------------------------------------------------------------
+
 
     assign core_start_pulse = (current_state == LOAD);
 
@@ -198,7 +195,7 @@ logic [5:0] round_count;
         .h6_out       (h6_out),
         .h7_out       (h7_out)
     );
-
+//STATE MACHINE
 always_ff @(posedge clk or negedge reset_n) begin
     if (!reset_n) begin
         current_state <= IDLE;
@@ -230,7 +227,7 @@ always_ff @(posedge clk or negedge reset_n) begin
             end
 
             WAIT_DONE: begin
-                // Wait for the compression core to finish add-back.
+                // wait for compression core to finish writeback/addback
                 if (core_digest_valid) begin
                     current_state <= DONE;
                 end
