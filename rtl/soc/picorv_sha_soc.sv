@@ -1,22 +1,19 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Engineer: Christian Saliba
 // 
 // Create Date: 06/16/2026 05:48:51 PM
-// Design Name: 
+// Design Name: PicoRV32 SoC with AXI and SHA-256 acceleration
 // Module Name: picorv32_axi_soc
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
+// Tool Versions: Vivado 2025.2
 // Description: 
-// 
+// A PicoRV32 core connected to RAM and a SHA-256 accelerator over AXI-4 Lite
 // Dependencies: 
-// 
+// picorv32_axi from picorv32.v, axi_lite_2peripheral_decoder.sv, axi_lite_ram.sv, sha256_axi_lite.sv, memory.mem
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
-// 
+// PicoRV32 is a third-party library. Please see third_party folder
 //////////////////////////////////////////////////////////////////////////////////
 
 
