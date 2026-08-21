@@ -75,7 +75,7 @@ module sha256_axi_lite (
         .rd_data (reg_rd_data)
     );
 
-    //write channel variables (or wires or whatever you verilog freaks call them)
+    //write channel variables
 
     logic [31:0] awaddr_reg;
     logic        awaddr_valid;
