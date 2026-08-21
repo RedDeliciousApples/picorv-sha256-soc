@@ -10,15 +10,24 @@ Tests that were written as the project progressed, to check that the SoC works c
 | `axi_tb.sv` | AXI decoder and RAM | Routing, WSTRB, write ordering | `$error` comparisons |
 | `sha256-core-tb.sv` | Core gets empty string and SHA constants, then displays H0–H7 | - | Visual inspection | 
 | `picorv_sha_soc_tb.sv` | Runs firmware, checks empty string result written to RAM | - |Self-checking |
+| `picorv_software_sha_tb.sv` | PicoRV32 SoC running software SHA-256 firmware | Empty-string digest and cycle count | Self-checking |
 | `basic_comms_test.sv` | Tests R/W for SHA registers at offsets 0x08 and 0x0C | - |Visual inspection |
 
-All tests pass as of 7/28/2026
+The three measurement testbenches pass as of August 10, 2026. Tests marked as
+visual inspection still require manual review.
 
 # Performance measurements
 
-`sha256_top_tb.sv` and `picorv_sha_soc_tb.sv` emit cycle counts using lines that
-begin with `MEASURE`. See [PERFORMANCE.md](PERFORMANCE.md) for the current
-baseline and the Vivado batch command.
+`sha256_block_top_b2b_tb`, `picorv_sha_soc_tb`, and `picorv_software_sha_tb`
+emit cycle counts using lines that begin with `MEASURE`. Run all three from the
+repository root with:
+
+```text
+vivado -mode batch -source tools/run_measurements.tcl -tclargs path/to/picorv.xpr
+```
+
+See [PERFORMANCE.md](PERFORMANCE.md) for the current baseline and measurement
+details.
 
 # Known possible regressions
 

@@ -49,8 +49,11 @@ See the [memory map documentation](docs/memory_map.md) for more details.
 4. Read `DIGEST0` through `DIGEST7`.
 
 ## Building Firmware
-After editing [main.c](firmware/main.c) as needed, run:
+After editing [main.c](firmware/main.c) as needed, run these commands from the
+`firmware` directory:
 ```
+cd firmware
+
 riscv32-unknown-elf-gcc \
   -march=rv32i \
   -mabi=ilp32 \
@@ -67,9 +70,9 @@ riscv32-unknown-elf-objcopy -O binary firmware.elf firmware.bin
 ```
 then convert to a .mem file:
 ```bash
-python firmware/bin_to_mem.py
+python ../tools/bin_to_mem.py
+cp memory.mem ../sim/mem/memory.mem
 ```
-There's a copy of this in [instructions_for_compiling.md](firmware/instructions_for_compiling.md).
 ## Testing
 You can see the current tests in [the TESTING.md file](docs/TESTING.md). Note that you need to check some of them yourself, since they're still a work in progress
 
