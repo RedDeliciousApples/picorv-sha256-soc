@@ -22,7 +22,7 @@ foreach ($candidate in $prefixCandidates) {
 }
 
 if (-not $toolPrefix) {
-    throw "RISC-V compiler not found. Install a toolchain, add its bin directory to PATH, or set RISCV_TOOL_PREFIX. Read the RV32I_BUILD.md file for help on how to do that."
+    throw "RISC-V compiler not found. Install a toolchain, add its bin directory to PATH, or set RISCV_TOOL_PREFIX."
 }
 
 $cxx = "$toolPrefix-g++"
