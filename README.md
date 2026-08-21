@@ -21,12 +21,12 @@ Vivado simulation can compute SHA hashes faster than a desktop CPU,
  and 100 MHz is only illustrative until I can find the real frequency with timing analysis.
 Also, the accelerator gets an already padded block, but the software library does its own padding. See [methodology and results](docs/PERFORMANCE.md).
 
-
-
-![Level 1 diagram](docs/images/level1diagram.png)
-
 ## Current Status
 Works with a 512-bit block, all tests pass. 
+
+## Top diagram
+![Level 1 diagram](docs/images/level1diagram.png)
+
 
 ## Architecture
 ![Level 2 diagram](docs/images/level2diagram.png)
