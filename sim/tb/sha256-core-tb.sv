@@ -63,13 +63,49 @@ module sha256_core_tb();
     logic [31:0] h6_out;
     logic [31:0] h7_out;
 
+    logic [255:0] actual_digest;
+
+    assign actual_digest = {
+            h0_out,
+            h1_out,
+            h2_out,
+            h3_out,
+            h4_out,
+            h5_out,
+            h6_out,
+            h7_out
+    };
+
     integer cycles = 0;
-    
     logic [31:0] test_W [0:63];
     
     integer i;
     integer j;
+
+    localparam [255:0] SHA256_EMPTY_EXPECTED =
+    256'he3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855;
     
+    initial begin : watchdog
+        integer wait_cycles;
+
+        wait (start_pulse === 1'b1);
+
+        wait_cycles = 0;
+
+        while ((digest_valid !== 1'b1) && (wait_cycles < 100)) begin
+            @(posedge clk);
+            wait_cycles = wait_cycles + 1;
+        end
+
+        if (digest_valid !== 1'b1) begin
+            $fatal(
+                1,
+                "FAIL: digest_valid timeout after %0d cycles",
+                wait_cycles
+            );
+        end
+    end
+
     initial begin
         for (i = 0; i < 64; i = i + 1) begin
             test_W[i] = 32'd0;
@@ -146,18 +182,17 @@ module sha256_core_tb();
             @(negedge clk);
         end
         
-        wait(digest_valid == 1'b1);
+        wait(digest_valid === 1'b1);
         #1;
-        
-        $display("--- SHA-256 CORE HASH COMPLETE ---");
-        $display("H0: 0x%08h", h0_out);
-        $display("H1: 0x%08h", h1_out);
-        $display("H2: 0x%08h", h2_out);
-        $display("H3: 0x%08h", h3_out);
-        $display("H4: 0x%08h", h4_out);
-        $display("H5: 0x%08h", h5_out);
-        $display("H6: 0x%08h", h6_out);
-        $display("H7: 0x%08h", h7_out);
+
+
+        if (actual_digest !== SHA256_EMPTY_EXPECTED) begin
+            $display("Expected: %064h", SHA256_EMPTY_EXPECTED);
+            $display("Actual:   %064h", actual_digest);
+            $fatal(1, "FAIL: SHA-256 core digest mismatch");
+        end
+
+        $display("PASS: SHA-256 core produced the empty-string digest");
         $finish;
 
 
