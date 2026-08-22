@@ -5,16 +5,15 @@ Tests that were written as the project progressed, to check that the SoC works c
 
 | Testbench | Design under test | Tests performed | Checking method |
 |---|---|---|---|
-| `sha256_scheduler_tb.sv` | SHA scheduler | Generates 64 schedule words | Visual inspection |
+| `sha256_scheduler_tb.sv` | SHA scheduler | Checks all 64 words of the empty-string schedule | Self-checking |
 | `sha256_top_tb.sv` | SHA block top | Empty string and `"abc"` | Self-checking |
-| `axi_tb.sv` | AXI decoder and RAM | Routing, WSTRB, write ordering | `$error` comparisons |
-| `sha256-core-tb.sv` | Core gets empty string and SHA constants, then displays H0–H7 | - | Visual inspection | 
+| `axi_tb.sv` | AXI decoder and RAM | Routing, WSTRB, write ordering | Self-checking |
+| `sha256-core-tb.sv` | SHA compression core | Empty-string digest and completion timeout | Self-checking |
 | `picorv_sha_soc_tb.sv` | Runs firmware, checks empty string result written to RAM | - |Self-checking |
 | `picorv_software_sha_tb.sv` | PicoRV32 SoC running software SHA-256 firmware | Empty-string digest and cycle count | Self-checking |
-| `basic_comms_test.sv` | Tests R/W for SHA registers at offsets 0x08 and 0x0C | - |Visual inspection |
+| `basic_comms_test.sv` | SHA register interface | Block-register writes and readback | Self-checking |
 
-The three measurement testbenches pass as of August 10, 2026. Tests marked as
-visual inspection still require manual review.
+All seven testbenches are self-checking.
 
 # Performance measurements
 
@@ -28,6 +27,30 @@ vivado -mode batch -source tools/run_measurements.tcl -tclargs path/to/picorv.xp
 
 See [PERFORMANCE.md](PERFORMANCE.md) for the current baseline and measurement
 details.
+
+# Vivado project setup
+
+Vivado project files are generated locally, they're not tracked by Git. Create a Basys3 project from the repository root with:
+
+```text
+vivado -mode batch -source tools/create_vivado_project.tcl
+```
+
+This creates `vivado/picorv.xpr`. To relink an existing project after pulling changes:
+
+```text
+vivado -mode batch -source tools/relink_vivado_project.tcl \
+  -tclargs path/to/picorv.xpr
+```
+
+# Running tests
+
+Run the full regression suite with:
+
+```text
+vivado -mode batch -source tools/run_regression.tcl \
+  -tclargs path/to/picorv.xpr
+```
 
 # Known possible regressions
 
