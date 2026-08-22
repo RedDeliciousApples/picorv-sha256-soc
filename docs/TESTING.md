@@ -6,7 +6,7 @@ Tests that were written as the project progressed, to check that the SoC works c
 | Testbench | Design under test | Tests performed | Checking method |
 |---|---|---|---|
 | `sha256_scheduler_tb.sv` | SHA scheduler | Checks all 64 words of the empty-string schedule | Self-checking |
-| `sha256_top_tb.sv` | SHA block top | Empty string and `"abc"` | Self-checking |
+| `sha256_top_tb.sv` | SHA block top | Empty string, `"abc"`, and the 55-byte one-block boundary | Self-checking |
 | `axi_tb.sv` | AXI decoder and RAM | Routing, WSTRB, write ordering | Self-checking |
 | `sha256-core-tb.sv` | SHA compression core | Empty-string digest and completion timeout | Self-checking |
 | `picorv_sha_soc_tb.sv` | Runs firmware, checks empty string result written to RAM | - |Self-checking |

@@ -41,6 +41,9 @@ module sha256_block_top_b2b_tb;
     localparam [255:0] SHA256_ABC_EXPECTED =
         256'hba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad;
 
+    localparam [255:0] SHA256_55_A_EXPECTED =
+        256'h9f4390f8d30c2dd92ec9f095b65e2b9ae9b0a925a5258e241c9f1e910f734318;
+
     sha256_block_top dut (
         .clk     (clk),
         .reset_n (reset_n),
@@ -98,8 +101,7 @@ module sha256_block_top_b2b_tb;
                      test_name, measured_latency_cycles);
 
             if (digest !== expected) begin
-                $display("FAIL: %0s digest mismatch", test_name);
-                $finish;
+                $fatal(1, "FAIL: %0s digest mismatch", test_name);
             end else begin
                 $display("PASS: %0s", test_name);
             end
@@ -142,6 +144,21 @@ $display("Second block W15 should be 00000018, actual block[31:0]=%08h", block[3
         wait_for_done();
 
         check_digest(SHA256_ABC_EXPECTED, "SHA256 abc");
+
+        // ------------------------------------------------------------
+        // Test 3: SHA256("a" repeated 55 times) without reset - this is the largest message that fits in one block
+        // ------------------------------------------------------------
+
+        block = {
+            {13{32'h61616161}},
+            32'h61616180,
+            32'h00000000,
+            32'h000001b8
+        };
+
+        pulse_start();
+        wait_for_done();
+        check_digest(SHA256_55_A_EXPECTED, "SHA256 55 a bytes");
 
         $display("PASS: back-to-back SHA256 tests completed");
         $finish;
