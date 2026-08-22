@@ -57,6 +57,7 @@ module basic_comms_test(
         end
     endtask
     
+    //unused
     task read_reg(input logic [7:0] addr);
         begin
             @(posedge clk);
@@ -68,6 +69,36 @@ module basic_comms_test(
         
             s_rd_en   <= 1'b0;
             s_rd_addr <= 8'd0;
+        end
+    endtask
+
+    task automatic check_reg(input logic [7:0]  addr, input logic [31:0] expected);
+        begin
+            @(negedge clk);
+            s_rd_addr = addr;
+            s_rd_en   = 1'b1;
+
+            #1;
+
+            if (s_rd_data !== expected) begin
+                $fatal(
+                    1,
+                    "FAIL: register %02h expected %08h, got %08h",
+                    addr,
+                    expected,
+                    s_rd_data
+                );
+            end
+
+            $display(
+                "PASS: register %02h contained %08h",
+                addr,
+                s_rd_data
+            );
+
+            @(negedge clk);
+            s_rd_en   = 1'b0;
+            s_rd_addr = 8'd0;
         end
     endtask
         
@@ -84,13 +115,13 @@ module basic_comms_test(
     
         repeat (2) @(posedge clk);
     
-        write_reg(8'h08, 32'hDEADBEEF);
-        read_reg(8'h08);
-    
-        write_reg(8'h0C, 32'h12345678);
-        read_reg(8'h0C);
-    
-        repeat (10) @(posedge clk);
+        write_reg(8'h08, 32'hDEAD_BEEF);
+        check_reg(8'h08, 32'hDEAD_BEEF);
+
+        write_reg(8'h0C, 32'h1234_5678);
+        check_reg(8'h0C, 32'h1234_5678);
+
+        $display("PASS: basic communication test completed");
         $finish;
     end
 endmodule
