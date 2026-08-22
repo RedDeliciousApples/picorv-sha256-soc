@@ -138,8 +138,7 @@ module picorv_sha_soc_tb;
 
         repeat (5000) @(posedge clk);
 
-        $display("Simulation timeout.");
-        $finish;
+        $fatal(1, "FAIL: simulation timeout: exceeded 5000 cycles");
     end
 
     always @(posedge clk) begin

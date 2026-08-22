@@ -77,11 +77,11 @@ module sha256_block_top_b2b_tb;
             measured_latency_cycles = timeout_count;
 
             if (timeout_count >= 200) begin
-                $display("FAIL: timeout waiting for done");
+                $display("FAILURE DIAGNOSTICS:");
                 $display("busy   = %b", busy);
                 $display("done   = %b", done);
                 $display("digest = %064h", digest);
-                $finish;
+                $fatal(1, "FAIL: timeout waiting for done, exceeded 200 cycles");
             end
 
         end
