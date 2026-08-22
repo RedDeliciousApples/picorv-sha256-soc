@@ -586,7 +586,7 @@ module axi_tb;
         axi_read (32'h0000_0000, read_data);
     
         if (read_data !== 32'hDEAD_BEEF) begin
-            $error("RAM decode test failed at 0x0000_0000: got %08h", read_data);
+            $fatal(1, "RAM decode test failed at 0x0000_0000: got %08h", read_data);
         end else begin
             $display("RAM decode test passed at 0x0000_0000");
         end
@@ -595,7 +595,7 @@ module axi_tb;
         axi_read (32'h0000_0004, read_data);
     
         if (read_data !== 32'h1234_5678) begin
-            $error("RAM decode test failed at 0x0000_0004: got %08h", read_data);
+            $fatal(1, "RAM decode test failed at 0x0000_0004: got %08h", read_data);
         end else begin
             $display("RAM decode test passed at 0x0000_0004");
         end
@@ -609,7 +609,7 @@ module axi_tb;
         axi_read      (32'h0000_0010, read_data);
     
         if (read_data !== 32'h1122_33BB) begin
-            $error("RAM WSTRB through decoder failed: got %08h", read_data);
+            $fatal(1, "RAM WSTRB through decoder failed: got %08h", read_data);
         end else begin
             $display("RAM WSTRB through decoder passed");
         end
@@ -625,7 +625,7 @@ module axi_tb;
         axi_read (32'h1000_0008, read_data);
     
         if (read_data !== 32'hCAFE_BABE) begin
-            $error("SHA decode test failed at 0x1000_0008: got %08h", read_data);
+            $fatal(1, "SHA decode test failed at 0x1000_0008: got %08h", read_data);
         end else begin
             $display("SHA decode test passed at 0x1000_0008");
         end
@@ -635,7 +635,7 @@ module axi_tb;
         axi_read (32'h1000_000C, read_data);
     
         if (read_data !== 32'hAABB_CCDD) begin
-            $error("SHA decode test failed at 0x1000_000C: got %08h", read_data);
+            $fatal(1, "SHA decode test failed at 0x1000_000C: got %08h", read_data);
         end else begin
             $display("SHA decode test passed at 0x1000_000C");
         end
@@ -649,7 +649,7 @@ module axi_tb;
         axi_read          (32'h0000_0014, read_data);
     
         if (read_data !== 32'h1357_2468) begin
-            $error("AW-first RAM write through decoder failed: got %08h", read_data);
+            $fatal(1, "AW-first RAM write through decoder failed: got %08h", read_data);
         end else begin
             $display("AW-first RAM write through decoder passed");
         end
@@ -659,7 +659,7 @@ module axi_tb;
         axi_read         (32'h1000_0010, read_data);
     
         if (read_data !== 32'hFACE_CAFE) begin
-            $error("W-first SHA write through decoder failed: got %08h", read_data);
+            $fatal(1, "W-first SHA write through decoder failed: got %08h", read_data);
         end else begin
             $display("W-first SHA write through decoder passed");
         end
