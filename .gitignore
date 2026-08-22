@@ -1,5 +1,12 @@
 # Vivado generated files
 .Xil/
+*.xpr
+*.cache/
+*.hw/
+*.ip_user_files/
+*.runs/
+*.sim/
+*.gen/
 *.jou
 *.log
 *.str
@@ -15,6 +22,9 @@ dfx_runtime.txt
 .sim/
 .gen/
 *.xpr.zip
+
+# Default local project created by tools/create_vivado_project.tcl
+/vivado/
 
 # XSim generated files
 xsim.dir/
