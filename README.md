@@ -5,15 +5,14 @@ This is a PicoRV32-based RV32I SoC with a memory-mapped SHA-256 peripheral, usin
 
 ## Performance Result
 
-In Vivado behavioral simulation, hashing the empty message and storing its
-verified digest took:
+In Vivado behavioral simulation, hashing an empty message took:
 
 | PicoRV32 path | End-to-end cycles | Time at an assumed 100 MHz |
 |---|---:|---:|
 | RV32I software SHA-256 | 30,169 | 301.69 us |
 | AXI-Lite SHA-256 accelerator | 654 | 6.54 us |
 
-That is a **46.13x speedup**, or **97.83% fewer cycles**, for the
+That's a **46.13x speedup**, or **97.83% fewer cycles**, for the
 SHA256 accelerator on this PicoRV32 SoC.
 
 This is a comparison of cycle count in simulation. It does NOT mean
@@ -74,9 +73,9 @@ python ../tools/bin_to_mem.py
 cp memory.mem ../sim/mem/memory.mem
 ```
 ## Testing
-You can see the current tests in [the TESTING.md file](docs/TESTING.md). Note that you need to check some of them yourself, since they're still a work in progress
+You can see the current tests in [the TESTING.md file](docs/TESTING.md).
 
-Cycle-level accelerator and end-to-end baselines are recorded in [PERFORMANCE.md](docs/PERFORMANCE.md).
+Specific performance data can be found in [PERFORMANCE.md](docs/PERFORMANCE.md).
 
 ## Limitations
 - Only one 512-bit block at a time.
