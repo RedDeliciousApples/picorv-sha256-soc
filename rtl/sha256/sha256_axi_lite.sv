@@ -57,6 +57,7 @@ module sha256_axi_lite (
     logic        reg_wr_en;
     logic [7:0]  reg_wr_addr;
     logic [31:0] reg_wr_data;
+    logic [3:0]  reg_wr_strb;
 
     logic        reg_rd_en;
     logic [7:0]  reg_rd_addr;
@@ -69,6 +70,7 @@ module sha256_axi_lite (
         .wr_en   (reg_wr_en),
         .wr_addr (reg_wr_addr),
         .wr_data (reg_wr_data),
+        .wr_strb (reg_wr_strb),
 
         .rd_en   (reg_rd_en),
         .rd_addr (reg_rd_addr),
@@ -98,6 +100,7 @@ module sha256_axi_lite (
         reg_wr_en   = write_fire;
         reg_wr_addr = awaddr_reg[7:0];
         reg_wr_data = wdata_reg;
+        reg_wr_strb = wstrb_reg;
     end
     
     

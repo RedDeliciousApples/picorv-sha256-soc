@@ -30,6 +30,7 @@ module sha256_reg_if (
     input  logic        wr_en,
     input  logic [7:0]  wr_addr,
     input  logic [31:0] wr_data,
+    input  logic [3:0]  wr_strb,
 
     input  logic        rd_en,
     input  logic [7:0]  rd_addr,
@@ -90,27 +91,27 @@ always_ff @(posedge clk or negedge reset_n) begin
             unique case (wr_addr)
 
                 8'h00: begin
-                    if (wr_data[0] && ready) begin
+                    if (wr_strb[0] && wr_data[0] && ready) begin
                         start_pulse <= 1'b1;
                     end
                 end
-
-                8'h08: block_words[0]  <= wr_data;
-                8'h0C: block_words[1]  <= wr_data;
-                8'h10: block_words[2]  <= wr_data;
-                8'h14: block_words[3]  <= wr_data;
-                8'h18: block_words[4]  <= wr_data;
-                8'h1C: block_words[5]  <= wr_data;
-                8'h20: block_words[6]  <= wr_data;
-                8'h24: block_words[7]  <= wr_data;
-                8'h28: block_words[8]  <= wr_data;
-                8'h2C: block_words[9]  <= wr_data;
-                8'h30: block_words[10] <= wr_data;
-                8'h34: block_words[11] <= wr_data;
-                8'h38: block_words[12] <= wr_data;
-                8'h3C: block_words[13] <= wr_data;
-                8'h40: block_words[14] <= wr_data;
-                8'h44: block_words[15] <= wr_data;
+                //there's probably a better way to do this
+                8'h08: block_words[0]  <= apply_wstrb(block_words[0],  wr_data, wr_strb);
+                8'h0C: block_words[1]  <= apply_wstrb(block_words[1],  wr_data, wr_strb);
+                8'h10: block_words[2]  <= apply_wstrb(block_words[2],  wr_data, wr_strb);
+                8'h14: block_words[3]  <= apply_wstrb(block_words[3],  wr_data, wr_strb);
+                8'h18: block_words[4]  <= apply_wstrb(block_words[4],  wr_data, wr_strb);
+                8'h1C: block_words[5]  <= apply_wstrb(block_words[5],  wr_data, wr_strb);
+                8'h20: block_words[6]  <= apply_wstrb(block_words[6],  wr_data, wr_strb);
+                8'h24: block_words[7]  <= apply_wstrb(block_words[7],  wr_data, wr_strb);
+                8'h28: block_words[8]  <= apply_wstrb(block_words[8],  wr_data, wr_strb);
+                8'h2C: block_words[9]  <= apply_wstrb(block_words[9],  wr_data, wr_strb);
+                8'h30: block_words[10] <= apply_wstrb(block_words[10], wr_data, wr_strb);
+                8'h34: block_words[11] <= apply_wstrb(block_words[11], wr_data, wr_strb);
+                8'h38: block_words[12] <= apply_wstrb(block_words[12], wr_data, wr_strb);
+                8'h3C: block_words[13] <= apply_wstrb(block_words[13], wr_data, wr_strb);
+                8'h40: block_words[14] <= apply_wstrb(block_words[14], wr_data, wr_strb);
+                8'h44: block_words[15] <= apply_wstrb(block_words[15], wr_data, wr_strb);
 
                 default: begin
                 end
@@ -119,6 +120,20 @@ always_ff @(posedge clk or negedge reset_n) begin
         end
     end
 end
+
+function automatic logic [31:0] apply_wstrb(
+    input logic [31:0] prior,
+    input logic [31:0] data,
+    input logic [3:0]  strb
+);
+    for (int byte_index = 0; byte_index < 4; byte_index++) begin
+        if (strb[byte_index]) begin
+            apply_wstrb[byte_index*8 +: 8] = data[byte_index*8 +: 8];
+        end else begin
+            apply_wstrb[byte_index*8 +: 8] = prior[byte_index*8 +: 8];
+        end
+    end
+endfunction
 
 always_comb begin
     unique case (rd_addr)

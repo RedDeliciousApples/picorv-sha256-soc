@@ -37,6 +37,7 @@ module basic_comms_test(
         .wr_en (s_wr_en),
         .wr_addr (s_wr_addr),
         .wr_data (s_wr_data),
+        .wr_strb (4'hF),
         .rd_en(s_rd_en),
         .rd_addr(s_rd_addr),
         .rd_data(s_rd_data)

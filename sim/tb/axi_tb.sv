@@ -629,6 +629,16 @@ module axi_tb;
         end else begin
             $display("SHA decode test passed at 0x1000_0008");
         end
+
+        // VErify WSTRB works through the decoder for SHA peripheral
+        axi_write_strb(32'h1000_0008, 32'hFFFF_BBBB, 4'b0001);
+        axi_read      (32'h1000_0008, read_data);
+
+        if (read_data !== 32'hCAFE_BABB) begin
+            $fatal(1, "SHA WSTRB through decoder failed: got %08h", read_data);
+        end else begin
+            $display("SHA WSTRB through decoder passed");
+        end
     
         axi_write(32'h1000_000C, 32'hAABB_CCDD);
         //repeat (2) @(posedge s_axi_aclk);
