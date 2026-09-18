@@ -40,7 +40,9 @@ module picorv_sha_soc_tb;
     bit accelerator_done_seen;
     bit test_finished;
 
-    picorv_sha_soc dut (
+    picorv_sha_soc #(
+        .MEM_FILE ("memory.mem")
+    ) dut (
         .clk     (clk),
         .reset_n (reset_n),
         .trap    (trap)

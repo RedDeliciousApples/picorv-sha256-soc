@@ -19,7 +19,7 @@
 
 
 module picorv_sha_soc #(
-    parameter MEM_FILE = "memory.mem"
+    parameter MEM_FILE = ""
 ) (
     input  logic clk,
     input  logic reset_n,
