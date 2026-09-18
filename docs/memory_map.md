@@ -11,6 +11,8 @@
 |0x08-0x44  | BLOCK0-BLOCK15 |
 |0x80-0x9C  | DIGEST0-DIGEST7 |
 
+Remember that the registers require AXI-Lite `WSTRB`. You must set the strobe bit to update that specific register.
+
 # Block Word Ordering
 
 The SHA-256 accelerator accepts one 512-bit message block as input, and it's then divided into 16 registers (`BLOCK0` through `BLOCK15`).
