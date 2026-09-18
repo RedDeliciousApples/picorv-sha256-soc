@@ -77,12 +77,14 @@ module sha256_scheduler (
     assign idx_m15 = round[3:0] - 4'd15;
     assign idx_m16 = round[3:0] - 4'd0;
     
-    //again, check the paper...
+    //trying to improve timing by balacing addition trees, so we split the sum into two parts
     
-    assign w_new = sig1(w_mem[idx_m2])
-             +       w_mem[idx_m7]
-             + sig0(w_mem[idx_m15])
-             +       w_mem[idx_m16];
+    logic [31:0] w_sum_left;
+    logic [31:0] w_sum_right;
+
+    assign w_sum_left  = sig1(w_mem[idx_m2]) + w_mem[idx_m7];
+    assign w_sum_right = sig0(w_mem[idx_m15]) + w_mem[idx_m16];
+    assign w_new       = w_sum_left + w_sum_right;
              
     // output original block words, for rounds 0 through 15
     // output word from generated schedule for rounds 16 through 63

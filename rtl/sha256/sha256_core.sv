@@ -65,7 +65,15 @@ module sha256_core(
     
     assign ch = (e & f) ^ ((~e) & g);
     
-    assign temp1 = h + S1 + ch + k_i + w_i;
+    // trying to balance addition trees to improve timing, so we split the sum into two parts
+    logic [31:0] temp1_left;
+    logic [31:0] temp1_right;
+    logic [31:0] temp1_partial;
+
+    assign temp1_left    = h + S1;
+    assign temp1_right   = ch + k_i;
+    assign temp1_partial = temp1_left + temp1_right;
+    assign temp1         = temp1_partial + w_i;
     
     assign S0 = (a_rot2) ^ (a_rot13) ^ (a_rot22);
     
