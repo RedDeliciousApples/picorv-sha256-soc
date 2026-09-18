@@ -36,8 +36,13 @@ foreach project_source [get_files -quiet -of_objects [get_filesets sim_1]] {
     }
 }
 
+foreach project_source [get_files -quiet -of_objects [get_filesets constrs_1]] {
+    remove_files -fileset constrs_1 $project_source
+}
+
 add_files -fileset sources_1 -norecurse $design_sources
 add_files -fileset sim_1 -norecurse $simulation_sources
+add_files -fileset constrs_1 -norecurse $constraint_sources
 
 set_property top picorv_sha_soc [get_filesets sources_1]
 set_property top picorv_sha_soc_tb [get_filesets sim_1]

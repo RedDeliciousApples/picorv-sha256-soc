@@ -25,7 +25,10 @@ set simulation_sources [list \
     [file join $repo_root sim mem memory.mem] \
     [file join $repo_root sim mem software_sha.mem]]
 
-foreach source_file [concat $design_sources $simulation_sources] {
+set constraint_sources [list \
+    [file join $repo_root constraints picorv_sha_soc_timing.xdc]]
+
+foreach source_file [concat $design_sources $simulation_sources $constraint_sources] {
     if {![file exists $source_file]} {
         error "Required repository file not found: $source_file"
     }
