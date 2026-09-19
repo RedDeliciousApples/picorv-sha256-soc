@@ -145,6 +145,7 @@ module sha256_core_tb();
         .clk(clk),
         .reset_n(reset_n),
         .start_pulse(start_pulse),
+        .round_en(1'b1),
         .w_i(w_i),
         .k_i(k_i),
         .digest_valid(digest_valid),

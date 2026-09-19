@@ -21,6 +21,7 @@ module sha256_core(
     input logic clk,
     input logic reset_n,
     input logic start_pulse,
+    input logic round_en,
     input logic [31:0] w_i,
     input logic [31:0] k_i,
     
@@ -51,6 +52,11 @@ module sha256_core(
     
     // Cumulative hash registers
     logic [31:0] h0, h1, h2, h3, h4, h5, h6, h7;
+
+    //enum for state machine
+    typedef enum logic [1:0] {IDLE, RUN, ADD, DONE} state_t;
+    state_t current_state;
+    logic [5:0] round_count; // 6 bits = 64 vals
     
     logic [31:0] a_rot2, e_rot6, e_rot11, a_rot13, a_rot22, e_rot25, S1, ch, temp1, S0, maj, temp2;
     
@@ -94,10 +100,6 @@ module sha256_core(
 
 
     //STATE MACHINE
-    typedef enum logic [1:0] {IDLE, RUN, ADD, DONE} state_t;
-    state_t current_state;
-    logic [5:0] round_count; // 6 bits = 64 vals
-    
     always_ff @(posedge clk or negedge reset_n) begin
     if (!reset_n) begin
         current_state <= IDLE;
@@ -125,22 +127,22 @@ module sha256_core(
             
             RUN: begin
                 
-                
+                if (round_en) begin
+                    a <= temp1 + temp2;
+                    b <= a;
+                    c <= b;
+                    d <= c;
+                    e <= d + temp1;
+                    f <= e;
+                    g <= f;
+                    h <= g;
 
-                a <= temp1 + temp2;
-                b <= a;
-                c <= b;
-                d <= c;
-                e <= d + temp1;
-                f <= e;
-                g <= f;
-                h <= g;
-                
-                if (round_count == 6'd63) begin
-                    current_state <= ADD;
-                end else begin
-                    round_count <= round_count + 1'b1;
-                end 
+                    if (round_count == 6'd63) begin
+                        current_state <= ADD;
+                    end else begin
+                        round_count <= round_count + 1'b1;
+                    end
+                end
             end
             
             ADD: begin

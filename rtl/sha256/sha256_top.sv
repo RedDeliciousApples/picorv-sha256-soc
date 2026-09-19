@@ -32,7 +32,8 @@ module sha256_block_top (
 typedef enum logic [2:0] {
     IDLE,
     LOAD,
-    RUN,
+    PREPARE,
+    EXECUTE,
     WAIT_DONE,
     DONE
 } state_t;
@@ -47,12 +48,15 @@ logic [5:0] round_count;
     logic        sched_load;
     logic        sched_next;
     logic [31:0] sched_w;
+    logic [31:0] sched_w_reg;
 
     // K ROM output
     logic [31:0] k_word;
+    logic [31:0] k_word_reg;
 
     // Compression core control/wires
     logic        core_start_pulse;
+    logic        core_round_en;
     logic        core_digest_valid;
 
     logic [31:0] h0_out;
@@ -74,7 +78,8 @@ logic [5:0] round_count;
     };
 
     assign busy = (current_state == LOAD) ||
-                  (current_state == RUN)  ||
+                  (current_state == PREPARE) ||
+                  (current_state == EXECUTE) ||
                   (current_state == WAIT_DONE);
 
     assign done = (current_state == DONE);
@@ -86,7 +91,7 @@ logic [5:0] round_count;
 
 
     assign sched_load = (current_state == LOAD);
-    assign sched_next = (current_state == RUN);
+    assign sched_next = (current_state == PREPARE);
 
     sha256_scheduler scheduler_inst (
         .clk     (clk),
@@ -177,13 +182,15 @@ logic [5:0] round_count;
 
 
     assign core_start_pulse = (current_state == LOAD);
+    assign core_round_en = (current_state == EXECUTE);
 
     sha256_core core_inst (
         .clk          (clk),
         .reset_n      (reset_n),
         .start_pulse  (core_start_pulse),
-        .w_i          (sched_w),
-        .k_i          (k_word),
+        .round_en     (core_round_en),
+        .w_i          (sched_w_reg),
+        .k_i          (k_word_reg),
 
         .digest_valid (core_digest_valid),
         .h0_out       (h0_out),
@@ -201,6 +208,8 @@ always_ff @(posedge clk or negedge reset_n) begin
         current_state <= IDLE;
         round_count   <= 6'd0;
         block_reg     <= 512'd0;
+        sched_w_reg   <= 32'd0;
+        k_word_reg    <= 32'd0;
     end else begin
         case (current_state)
 
@@ -215,14 +224,22 @@ always_ff @(posedge clk or negedge reset_n) begin
 
             LOAD: begin
                 round_count   <= 6'd0;
-                current_state <= RUN;
+                current_state <= PREPARE;
             end
 
-            RUN: begin
+            PREPARE: begin
+                //register the scheduler and k rom to use in the EXECUTE cycle
+                sched_w_reg   <= sched_w;
+                k_word_reg    <= k_word;
+                current_state <= EXECUTE;
+            end
+
+            EXECUTE: begin
                 if (round_count == 6'd63) begin
                     current_state <= WAIT_DONE;
                 end else begin
                     round_count <= round_count + 6'd1;
+                    current_state <= PREPARE;
                 end
             end
 
