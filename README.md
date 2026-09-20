@@ -3,6 +3,12 @@
 ## Overview
 This is a PicoRV32-based RV32I SoC with a memory-mapped SHA-256 peripheral, using the AXI-4 Lite interface, mainly made to help me learn AXI. It can process one 512-bit padded message block per operation.
 
+## Tapeout attempts
+The first OpenLane attempt is documented in
+[asic/openlane](asic/openlane/README.md). It was unsuccessfull due to too many I/O ports.
+
+The second attempt is in [asic/openlane_axi_lite](asic/openlane_axi_lite/README.md).
+
 ## Performance Result
 
 In Vivado behavioral simulation, hashing an empty message took:
@@ -82,4 +88,6 @@ Specific performance data can be found in [PERFORMANCE.md](docs/PERFORMANCE.md).
 - Padding is done in software for now
 - Can't chain multiple blocks yet
 - No PPA analysis yet
+
+
 
