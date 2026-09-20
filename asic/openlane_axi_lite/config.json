@@ -1,0 +1,20 @@
+{
+  "DESIGN_NAME": "sha256_axi_lite",
+  "VERILOG_FILES": [
+    "dir::../../rtl/sha256/sha256_core.sv",
+    "dir::../../rtl/sha256/sha256_scheduler.sv",
+    "dir::../../rtl/sha256/sha256_top.sv",
+    "dir::../../rtl/sha256/sha256_reg_if.sv",
+    "dir::../../rtl/sha256/sha256_axi_lite.sv"
+  ],
+  "CLOCK_PORT": "s_axi_aclk",
+  "CLOCK_PERIOD": 20.0,
+  "FP_SIZING": "absolute",
+  "DIE_AREA": [0, 0, 600, 600],
+  "CORE_AREA": [10, 10, 590, 590],
+  "pdk::sky130A": {
+    "STD_CELL_LIBRARY": "sky130_fd_sc_hd",
+    "FP_CORE_UTIL": 40,
+    "PL_TARGET_DENSITY_PCT": 50
+  }
+}

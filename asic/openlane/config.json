@@ -1,0 +1,18 @@
+{
+  "DESIGN_NAME": "sha256_block_top",
+  "VERILOG_FILES": [
+    "dir::../../rtl/sha256/sha256_core.sv",
+    "dir::../../rtl/sha256/sha256_scheduler.sv",
+    "dir::../../rtl/sha256/sha256_top.sv"
+  ],
+  "CLOCK_PORT": "clk",
+  "CLOCK_PERIOD": 20.0,
+  "FP_SIZING": "absolute",
+  "DIE_AREA": [0, 0, 700, 700],
+  "CORE_AREA": [10, 10, 690, 690],
+  "pdk::sky130A": {
+    "STD_CELL_LIBRARY": "sky130_fd_sc_hd",
+    "FP_CORE_UTIL": 40,
+    "PL_TARGET_DENSITY_PCT": 50
+  }
+}
