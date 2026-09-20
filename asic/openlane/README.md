@@ -1,6 +1,6 @@
 # OpenLane SHA-256 accelerator bring-up
 
-This first OpenLane run was meant to help me explore how OpenLane works. It had something like 5000 shorts and numerous other PnR errors, probably because I was building the register interface which had 774 I/O pins. I decided to abandon this attempt and move on to the attempt in openlane_axi_lite.
+This first OpenLane run was meant to help me explore how OpenLane works. It had something like 5000 shorts and numerous other PnR errors, probably because I was building the register interface which had 774 I/O pins. I decided to abandon this attempt and move on to the attempt in [asic/openlane_axi_lite](asic/openlane_axi_lite/README.md).
 
 ## Target
 
