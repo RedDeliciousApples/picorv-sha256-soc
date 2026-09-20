@@ -1,0 +1,21 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Thu Sep 17 19:36:04 2026
+| Host         : <redacted>
+| Command      : report_clock_networks -file <report-path>/clock_networks_100mhz.rpt
+| Design       : picorv_sha_soc
+| Device       : 7a35t-cpg236
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Clock Networks Report
+
+
+Constrained Clocks
+-------------------
+
+Clock sys_clk (100MHz)(endpoints: 3065 clock, 0 nonclock)
+Port clk
+

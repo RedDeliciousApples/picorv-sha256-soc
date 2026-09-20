@@ -1,0 +1,18 @@
+MEASURE sha_block.latency_cycles test="SHA256 empty string" value=131
+MEASURE sha_block.latency_cycles test="SHA256 abc" value=131
+MEASURE sha_block.latency_cycles test="SHA256 55 a bytes" value=131
+MEASURE soc.total_cycles value=732
+MEASURE soc.operation_cycles value=677
+MEASURE soc.reset_to_first_block_write_cycles value=55
+MEASURE soc.block_load_and_start_cycles value=288
+MEASURE soc.ctrl_to_accelerator_start_cycles value=1
+MEASURE soc.accelerator_cycles value=131
+MEASURE soc.digest_readback_and_store_cycles value=257
+MEASURE software.total_cycles value=30169
+MEASURE software.reset_to_start_cycles value=61
+MEASURE software.hash_and_store_cycles value=30108
+
+end_to_end_speedup = 30169 / 732 = 41.214x
+end_to_end_cycle_reduction = 1 - (732 / 30169) = 97.574%
+operation_speedup = 30108 / 677 = 44.473x
+operation_cycle_reduction = 1 - (677 / 30108) = 97.751%
