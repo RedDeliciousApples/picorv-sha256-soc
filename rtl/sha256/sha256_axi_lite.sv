@@ -63,9 +63,25 @@ module sha256_axi_lite (
     logic [7:0]  reg_rd_addr;
     logic [31:0] reg_rd_data;
 
+    //Asynchronous reset assertion, synchronous reset deassertion
+    //Coutesy of https://fpgacpu.ca/fpga/Reset_Synchronizer.html
+    (* ASYNC_REG = "TRUE" *) logic [1:0] reset_sync_ff;
+    logic reset_n_internal;
+
+    always_ff @(posedge s_axi_aclk or negedge s_axi_aresetn) begin
+        if (!s_axi_aresetn)
+            reset_sync_ff <= 2'b00;
+        else
+            reset_sync_ff <= {reset_sync_ff[0], 1'b1};
+    end
+
+    assign reset_n_internal = reset_sync_ff[1];
+
+
+
     sha256_reg_if reg_if_inst (
         .clk     (s_axi_aclk),
-        .reset_n (s_axi_aresetn),
+        .reset_n (reset_n_internal),
 
         .wr_en   (reg_wr_en),
         .wr_addr (reg_wr_addr),
@@ -103,9 +119,9 @@ module sha256_axi_lite (
         reg_wr_strb = wstrb_reg;
     end
     
-    
-    always_ff @(posedge s_axi_aclk or negedge s_axi_aresetn) begin
-        if (!s_axi_aresetn) begin
+    // write channel
+    always_ff @(posedge s_axi_aclk or negedge reset_n_internal) begin
+        if (!reset_n_internal) begin
             awaddr_reg   <= 32'd0;
             awaddr_valid <= 1'b0;
     
@@ -139,9 +155,7 @@ module sha256_axi_lite (
     end
     
 
-    // ------------------------------------------------------------
     // Read channel
-    // ------------------------------------------------------------
 
     assign s_axi_arready = !s_axi_rvalid;
     assign s_axi_rresp   = 2'b00;
@@ -151,8 +165,8 @@ module sha256_axi_lite (
         reg_rd_addr = s_axi_araddr[7:0];
     end
 
-    always_ff @(posedge s_axi_aclk or negedge s_axi_aresetn) begin
-        if (!s_axi_aresetn) begin
+    always_ff @(posedge s_axi_aclk or negedge reset_n_internal) begin
+        if (!reset_n_internal) begin
             s_axi_rvalid <= 1'b0;
             s_axi_rdata  <= 32'd0;
         end else begin
