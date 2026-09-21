@@ -48,3 +48,6 @@ picorv32/
 .DS_Store
 .vscode/
 *:Zone.Identifier
+
+#openlane generated stuff
+/asic/openlane_axi_lite/runs/
