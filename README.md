@@ -11,20 +11,22 @@ The second attempt is in [asic/openlane_axi_lite](asic/openlane_axi_lite/README.
 
 ## Performance Result
 
-In Vivado behavioral simulation, hashing an empty message took:
+In self-checking Vivado RTL simulation, hashing an empty message took:
 
 | PicoRV32 path | End-to-end cycles | Time at an assumed 100 MHz |
 |---|---:|---:|
 | RV32I software SHA-256 | 30,169 | 301.69 us |
-| AXI-Lite SHA-256 accelerator | 654 | 6.54 us |
+| AXI-Lite SHA-256 accelerator | 732 | 7.32 us |
 
-That's a **46.13x speedup**, or **97.83% fewer cycles**, for the
+That's a **41.21x speedup**, or **97.57% fewer cycles**, for the
 SHA256 accelerator on this PicoRV32 SoC.
 
 This is a comparison of cycle count in simulation. It does NOT mean
 Vivado simulation can compute SHA hashes faster than a desktop CPU,
- and 100 MHz is only illustrative until I can find the real frequency with timing analysis.
-Also, the accelerator gets an already padded block, but the software library does its own padding. See [methodology and results](docs/PERFORMANCE.md).
+and it is not a physical-board benchmark. Implementation met 100 MHz with +0.079 ns setup slack and +0.036 ns hold slack.
+Also, the accelerator gets an already padded block, but the software library
+does its own padding. See [methodology and results](docs/PERFORMANCE.md) and
+the [post-route reports](results/fpga/2026-09-19-vivado-2026.1-100mhz/).
 
 ## Current Status
 Works with a 512-bit block, all tests pass. 
