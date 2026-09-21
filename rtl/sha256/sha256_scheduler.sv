@@ -82,8 +82,8 @@ module sha256_scheduler (
     logic [31:0] w_sum_left;
     logic [31:0] w_sum_right;
 
-    assign w_sum_left  = sig1(w_mem[idx_m2]) + w_mem[idx_m7];
-    assign w_sum_right = sig0(w_mem[idx_m15]) + w_mem[idx_m16];
+    assign w_sum_left  = sig1(w_mem[14]) + w_mem[9];
+    assign w_sum_right = sig0(w_mem[1])  + w_mem[0];
     assign w_new       = w_sum_left + w_sum_right;
              
     // output original block words, for rounds 0 through 15
@@ -121,7 +121,11 @@ module sha256_scheduler (
                 w_mem[14] <= block[63:32];
                 w_mem[15] <= block[31:0];
             end else if (next && round >= 6'd16) begin
-                w_mem[round[3:0]] <= w_new;
+                // this used to be w_mem[round[3:0]] <= w_new; which was bad for timing
+                    for (int i = 0; i < 15; i++) begin
+                        w_mem[i] <= w_mem[i + 1];
+                    end
+                    w_mem[15] <= w_new;
             end
         end
     end
