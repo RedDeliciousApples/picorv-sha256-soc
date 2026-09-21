@@ -9,6 +9,8 @@
   ],
   "CLOCK_PORT": "s_axi_aclk",
   "CLOCK_PERIOD": 20.0,
+  "PNR_SDC_FILE": "dir::pnr.sdc",
+  "SIGNOFF_SDC_FILE": "dir::signoff.sdc",
   "FP_SIZING": "absolute",
   "DIE_AREA": [0, 0, 600, 600],
   "CORE_AREA": [10, 10, 590, 590],
