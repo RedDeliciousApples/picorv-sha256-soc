@@ -20,7 +20,7 @@ set_clock_transition 0.150 $axi_clock
 
 set axi_inputs [get_ports {
     s_axi_awaddr[*]
-    s_axi_awprot[*]s
+    s_axi_awprot[*]
     s_axi_awvalid
     s_axi_wdata[*]
     s_axi_wstrb[*]
