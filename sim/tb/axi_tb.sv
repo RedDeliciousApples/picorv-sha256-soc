@@ -571,9 +571,12 @@ module axi_tb;
         // ------------------------------------------------------------
     
         repeat (5) @(posedge s_axi_aclk);
+
+        @(negedge s_axi_aclk);
         s_axi_aresetn = 1'b1;
-    
-        repeat (2) @(posedge s_axi_aclk);
+
+        // Two synchronizer stages, plus one edge to avoid testbench/DUT races.
+        repeat (3) @(posedge s_axi_aclk);
     
         $display("Starting decoder tests...");
     
