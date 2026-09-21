@@ -57,10 +57,9 @@ set_output_delay -clock $axi_clock -max 4.000 $axi_outputs
 set_output_delay -clock $axi_clock -min 0.000 $axi_outputs
 set_false_path -to $constant_outputs
 
-# synchronous reset
+# async reset with a reset synchronizer 
 set_input_transition 0.150 [get_ports {s_axi_aresetn}]
-set_input_delay -clock $axi_clock -max 4.000 [get_ports {s_axi_aresetn}]
-set_input_delay -clock $axi_clock -min 0.000 [get_ports {s_axi_aresetn}]
+set_false_path -from [get_ports {s_axi_aresetn}]
 
 # approximate capacitance from SKY130 Liberty library
 set_load 0.033442 $axi_outputs
