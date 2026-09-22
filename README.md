@@ -3,9 +3,28 @@
 ## Overview
 This is a PicoRV32-based RV32I SoC with a memory-mapped SHA-256 peripheral, using the AXI-4 Lite interface, mainly made to help me learn AXI. It can process one 512-bit padded message block per operation.
 
+
+
+## ASIC implementation result
+
+The AXI-Lite SHA-256 peripheral succesfully completed a 50 MHz OpenLane
+implementation run, and met timing, using the SKY130A `sky130_fd_sc_hd` library.
+It uses a 600 x 600 µm die with a 580 x 580 µm core.
+
+| Check | Result |
+|---|---:|
+| Worst setup slack | +3.025 ns |
+| Worst hold slack | +0.043 ns |
+| Setup / hold violations | 0 / 0 |
+| Max slew / capacitance violations | 0 / 0 |
+| Routing, Magic, and KLayout DRC | Clean |
+| LVS | Clean |
+
+Notes and reproduction commands are in [asic/openlane_axi_lite](asic/openlane_axi_lite/README.md).
+
 ## Tapeout attempts
 The first OpenLane attempt is documented in
-[asic/openlane](asic/openlane/README.md). It was unsuccessfull due to too many I/O ports.
+[asic/openlane](asic/openlane/README.md). It was unsuccessful due to too many I/O ports.
 
 The second attempt is in [asic/openlane_axi_lite](asic/openlane_axi_lite/README.md).
 
@@ -89,7 +108,7 @@ Specific performance data can be found in [PERFORMANCE.md](docs/PERFORMANCE.md).
 - Only one 512-bit block at a time.
 - Padding is done in software for now
 - Can't chain multiple blocks yet
-- No PPA analysis yet
+- No silicon measurement or tapeout yet
 
 
 
