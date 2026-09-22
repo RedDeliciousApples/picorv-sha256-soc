@@ -1,0 +1,1700 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Mon Sep 21 22:24:33 2026
+| Host         : DESKTOP-QH9F0UA running 64-bit major release  (build 9200)
+| Command      : report_timing -delay_type max -max_paths 20 -file C:/Users/christian/Downloads/picorv-sha256-soc/vivado/reports/setup_paths_100mhz.rpt
+| Design       : picorv_sha_soc
+| Device       : 7a35t-cpg236
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (MET) :             0.522ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/a_reg[31]/D
+                            (rising edge-triggered cell FDCE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        9.410ns  (logic 4.564ns (48.503%)  route 4.846ns (51.497%))
+  Logic Levels:           13  (CARRY4=7 LUT2=1 LUT5=3 LUT6=2)
+  Clock Path Skew:        -0.108ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.777ns = ( 14.777 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     8.353 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[3]
+                         net (fo=2, routed)           0.796     9.148    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_4
+    SLICE_X43Y24         LUT5 (Prop_lut5_I4_O)        0.307     9.455 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4/O
+                         net (fo=2, routed)           0.570    10.025    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4_n_0
+    SLICE_X39Y24         LUT6 (Prop_lut6_I0_O)        0.124    10.149 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8/O
+                         net (fo=1, routed)           0.000    10.149    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8_n_0
+    SLICE_X39Y24         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    10.681 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    10.690    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_n_0
+    SLICE_X39Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.804 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    10.804    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3_n_0
+    SLICE_X39Y26         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    11.117 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__4/O[3]
+                         net (fo=3, routed)           0.489    11.606    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[23]
+    SLICE_X45Y27         LUT5 (Prop_lut5_I4_O)        0.306    11.912 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_i_4/O
+                         net (fo=2, routed)           0.625    12.537    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_i_4_n_0
+    SLICE_X46Y27         LUT6 (Prop_lut6_I0_O)        0.124    12.661 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_i_8/O
+                         net (fo=1, routed)           0.000    12.661    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_i_8_n_0
+    SLICE_X46Y27         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513    13.174 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5/CO[3]
+                         net (fo=1, routed)           0.000    13.174    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_n_0
+    SLICE_X46Y28         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315    13.489 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__6/O[3]
+                         net (fo=1, routed)           0.658    14.148    sha/reg_if_inst/sha_inst/core_inst/in14[31]
+    SLICE_X47Y28         LUT2 (Prop_lut2_I1_O)        0.335    14.483 r  sha/reg_if_inst/sha_inst/core_inst/a[31]_i_1/O
+                         net (fo=1, routed)           0.000    14.483    sha/reg_if_inst/sha_inst/core_inst/a[31]
+    SLICE_X47Y28         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[31]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.436    14.777    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X47Y28         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[31]/C
+                         clock pessimism              0.188    14.965    
+                         clock uncertainty           -0.035    14.930    
+    SLICE_X47Y28         FDCE (Setup_fdce_C_D)        0.075    15.005    sha/reg_if_inst/sha_inst/core_inst/a_reg[31]
+  -------------------------------------------------------------------
+                         required time                         15.005    
+                         arrival time                         -14.483    
+  -------------------------------------------------------------------
+                         slack                                  0.522    
+
+Slack (MET) :             0.649ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/a_reg[28]/D
+                            (rising edge-triggered cell FDCE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        9.239ns  (logic 4.428ns (47.929%)  route 4.811ns (52.071%))
+  Logic Levels:           13  (CARRY4=7 LUT2=1 LUT5=3 LUT6=2)
+  Clock Path Skew:        -0.108ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.777ns = ( 14.777 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     8.353 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[3]
+                         net (fo=2, routed)           0.796     9.148    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_4
+    SLICE_X43Y24         LUT5 (Prop_lut5_I4_O)        0.307     9.455 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4/O
+                         net (fo=2, routed)           0.570    10.025    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4_n_0
+    SLICE_X39Y24         LUT6 (Prop_lut6_I0_O)        0.124    10.149 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8/O
+                         net (fo=1, routed)           0.000    10.149    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8_n_0
+    SLICE_X39Y24         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    10.681 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    10.690    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_n_0
+    SLICE_X39Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.804 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    10.804    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3_n_0
+    SLICE_X39Y26         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    11.117 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__4/O[3]
+                         net (fo=3, routed)           0.489    11.606    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[23]
+    SLICE_X45Y27         LUT5 (Prop_lut5_I4_O)        0.306    11.912 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_i_4/O
+                         net (fo=2, routed)           0.625    12.537    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_i_4_n_0
+    SLICE_X46Y27         LUT6 (Prop_lut6_I0_O)        0.124    12.661 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_i_8/O
+                         net (fo=1, routed)           0.000    12.661    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_i_8_n_0
+    SLICE_X46Y27         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513    13.174 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5/CO[3]
+                         net (fo=1, routed)           0.000    13.174    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_n_0
+    SLICE_X46Y28         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219    13.393 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__6/O[0]
+                         net (fo=1, routed)           0.623    14.017    sha/reg_if_inst/sha_inst/core_inst/in14[28]
+    SLICE_X47Y28         LUT2 (Prop_lut2_I1_O)        0.295    14.312 r  sha/reg_if_inst/sha_inst/core_inst/a[28]_i_1/O
+                         net (fo=1, routed)           0.000    14.312    sha/reg_if_inst/sha_inst/core_inst/a[28]
+    SLICE_X47Y28         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[28]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.436    14.777    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X47Y28         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[28]/C
+                         clock pessimism              0.188    14.965    
+                         clock uncertainty           -0.035    14.930    
+    SLICE_X47Y28         FDCE (Setup_fdce_C_D)        0.031    14.961    sha/reg_if_inst/sha_inst/core_inst/a_reg[28]
+  -------------------------------------------------------------------
+                         required time                         14.961    
+                         arrival time                         -14.312    
+  -------------------------------------------------------------------
+                         slack                                  0.649    
+
+Slack (MET) :             0.654ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/a_reg[29]/D
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        9.234ns  (logic 4.543ns (49.199%)  route 4.691ns (50.801%))
+  Logic Levels:           13  (CARRY4=7 LUT3=1 LUT5=3 LUT6=2)
+  Clock Path Skew:        -0.108ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.777ns = ( 14.777 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     8.353 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[3]
+                         net (fo=2, routed)           0.796     9.148    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_4
+    SLICE_X43Y24         LUT5 (Prop_lut5_I4_O)        0.307     9.455 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4/O
+                         net (fo=2, routed)           0.570    10.025    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4_n_0
+    SLICE_X39Y24         LUT6 (Prop_lut6_I0_O)        0.124    10.149 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8/O
+                         net (fo=1, routed)           0.000    10.149    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8_n_0
+    SLICE_X39Y24         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    10.681 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    10.690    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_n_0
+    SLICE_X39Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.804 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    10.804    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3_n_0
+    SLICE_X39Y26         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    11.117 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__4/O[3]
+                         net (fo=3, routed)           0.489    11.606    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[23]
+    SLICE_X45Y27         LUT5 (Prop_lut5_I4_O)        0.306    11.912 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_i_4/O
+                         net (fo=2, routed)           0.625    12.537    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_i_4_n_0
+    SLICE_X46Y27         LUT6 (Prop_lut6_I0_O)        0.124    12.661 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_i_8/O
+                         net (fo=1, routed)           0.000    12.661    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_i_8_n_0
+    SLICE_X46Y27         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513    13.174 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5/CO[3]
+                         net (fo=1, routed)           0.000    13.174    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_n_0
+    SLICE_X46Y28         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.323    13.497 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__6/O[1]
+                         net (fo=1, routed)           0.504    14.001    sha/reg_if_inst/sha_inst/core_inst/in14[29]
+    SLICE_X47Y28         LUT3 (Prop_lut3_I1_O)        0.306    14.307 r  sha/reg_if_inst/sha_inst/core_inst/a[29]_i_1/O
+                         net (fo=1, routed)           0.000    14.307    sha/reg_if_inst/sha_inst/core_inst/a[29]
+    SLICE_X47Y28         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[29]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.436    14.777    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X47Y28         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[29]/C
+                         clock pessimism              0.188    14.965    
+                         clock uncertainty           -0.035    14.930    
+    SLICE_X47Y28         FDPE (Setup_fdpe_C_D)        0.031    14.961    sha/reg_if_inst/sha_inst/core_inst/a_reg[29]
+  -------------------------------------------------------------------
+                         required time                         14.961    
+                         arrival time                         -14.307    
+  -------------------------------------------------------------------
+                         slack                                  0.654    
+
+Slack (MET) :             0.743ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/a_reg[25]/D
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        9.144ns  (logic 4.328ns (47.333%)  route 4.816ns (52.667%))
+  Logic Levels:           13  (CARRY4=7 LUT3=1 LUT5=3 LUT6=2)
+  Clock Path Skew:        -0.110ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.775ns = ( 14.775 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     8.353 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[3]
+                         net (fo=2, routed)           0.796     9.148    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_4
+    SLICE_X43Y24         LUT5 (Prop_lut5_I4_O)        0.307     9.455 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4/O
+                         net (fo=2, routed)           0.570    10.025    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4_n_0
+    SLICE_X39Y24         LUT6 (Prop_lut6_I0_O)        0.124    10.149 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8/O
+                         net (fo=1, routed)           0.000    10.149    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8_n_0
+    SLICE_X39Y24         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    10.681 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    10.690    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_n_0
+    SLICE_X39Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.804 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    10.804    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3_n_0
+    SLICE_X39Y26         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    11.043 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__4/O[2]
+                         net (fo=3, routed)           0.597    11.641    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[22]
+    SLICE_X45Y26         LUT5 (Prop_lut5_I4_O)        0.302    11.943 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_i_1/O
+                         net (fo=2, routed)           0.574    12.517    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_i_1_n_0
+    SLICE_X46Y26         LUT6 (Prop_lut6_I0_O)        0.124    12.641 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_i_5/O
+                         net (fo=1, routed)           0.000    12.641    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_i_5_n_0
+    SLICE_X46Y26         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.376    13.017 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4/CO[3]
+                         net (fo=1, routed)           0.000    13.017    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_n_0
+    SLICE_X46Y27         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.323    13.340 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5/O[1]
+                         net (fo=1, routed)           0.571    13.911    sha/reg_if_inst/sha_inst/core_inst/in14[25]
+    SLICE_X45Y27         LUT3 (Prop_lut3_I1_O)        0.306    14.217 r  sha/reg_if_inst/sha_inst/core_inst/a[25]_i_1/O
+                         net (fo=1, routed)           0.000    14.217    sha/reg_if_inst/sha_inst/core_inst/a[25]
+    SLICE_X45Y27         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[25]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.434    14.775    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X45Y27         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[25]/C
+                         clock pessimism              0.188    14.963    
+                         clock uncertainty           -0.035    14.928    
+    SLICE_X45Y27         FDPE (Setup_fdpe_C_D)        0.032    14.960    sha/reg_if_inst/sha_inst/core_inst/a_reg[25]
+  -------------------------------------------------------------------
+                         required time                         14.960    
+                         arrival time                         -14.217    
+  -------------------------------------------------------------------
+                         slack                                  0.743    
+
+Slack (MET) :             0.757ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/a_reg[23]/D
+                            (rising edge-triggered cell FDCE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        9.180ns  (logic 4.207ns (45.829%)  route 4.973ns (54.171%))
+  Logic Levels:           11  (CARRY4=6 LUT2=1 LUT5=3 LUT6=1)
+  Clock Path Skew:        -0.107ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.778ns = ( 14.778 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     8.353 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[3]
+                         net (fo=2, routed)           0.796     9.148    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_4
+    SLICE_X43Y24         LUT5 (Prop_lut5_I4_O)        0.307     9.455 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4/O
+                         net (fo=2, routed)           0.570    10.025    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4_n_0
+    SLICE_X39Y24         LUT6 (Prop_lut6_I0_O)        0.124    10.149 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8/O
+                         net (fo=1, routed)           0.000    10.149    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8_n_0
+    SLICE_X39Y24         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    10.681 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    10.690    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_n_0
+    SLICE_X39Y25         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    11.024 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3/O[1]
+                         net (fo=3, routed)           0.626    11.650    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[17]
+    SLICE_X45Y25         LUT5 (Prop_lut5_I4_O)        0.303    11.953 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3_i_2/O
+                         net (fo=2, routed)           0.521    12.474    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3_i_2_n_0
+    SLICE_X46Y25         CARRY4 (Prop_carry4_DI[2]_CO[3])
+                                                      0.404    12.878 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    12.878    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3_n_0
+    SLICE_X46Y26         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315    13.193 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4/O[3]
+                         net (fo=1, routed)           0.753    13.946    sha/reg_if_inst/sha_inst/core_inst/in14[23]
+    SLICE_X46Y29         LUT2 (Prop_lut2_I1_O)        0.307    14.253 r  sha/reg_if_inst/sha_inst/core_inst/a[23]_i_1/O
+                         net (fo=1, routed)           0.000    14.253    sha/reg_if_inst/sha_inst/core_inst/a[23]
+    SLICE_X46Y29         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[23]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.437    14.778    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X46Y29         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[23]/C
+                         clock pessimism              0.188    14.966    
+                         clock uncertainty           -0.035    14.931    
+    SLICE_X46Y29         FDCE (Setup_fdce_C_D)        0.079    15.010    sha/reg_if_inst/sha_inst/core_inst/a_reg[23]
+  -------------------------------------------------------------------
+                         required time                         15.010    
+                         arrival time                         -14.253    
+  -------------------------------------------------------------------
+                         slack                                  0.757    
+
+Slack (MET) :             0.783ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/a_reg[27]/D
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        9.147ns  (logic 4.314ns (47.165%)  route 4.833ns (52.835%))
+  Logic Levels:           13  (CARRY4=7 LUT3=1 LUT5=3 LUT6=2)
+  Clock Path Skew:        -0.110ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.775ns = ( 14.775 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     8.353 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[3]
+                         net (fo=2, routed)           0.796     9.148    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_4
+    SLICE_X43Y24         LUT5 (Prop_lut5_I4_O)        0.307     9.455 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4/O
+                         net (fo=2, routed)           0.570    10.025    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4_n_0
+    SLICE_X39Y24         LUT6 (Prop_lut6_I0_O)        0.124    10.149 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8/O
+                         net (fo=1, routed)           0.000    10.149    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8_n_0
+    SLICE_X39Y24         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    10.681 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    10.690    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_n_0
+    SLICE_X39Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.804 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    10.804    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3_n_0
+    SLICE_X39Y26         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    11.043 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__4/O[2]
+                         net (fo=3, routed)           0.597    11.641    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[22]
+    SLICE_X45Y26         LUT5 (Prop_lut5_I4_O)        0.302    11.943 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_i_1/O
+                         net (fo=2, routed)           0.574    12.517    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_i_1_n_0
+    SLICE_X46Y26         LUT6 (Prop_lut6_I0_O)        0.124    12.641 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_i_5/O
+                         net (fo=1, routed)           0.000    12.641    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_i_5_n_0
+    SLICE_X46Y26         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.376    13.017 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4/CO[3]
+                         net (fo=1, routed)           0.000    13.017    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_n_0
+    SLICE_X46Y27         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315    13.332 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5/O[3]
+                         net (fo=1, routed)           0.588    13.920    sha/reg_if_inst/sha_inst/core_inst/in14[27]
+    SLICE_X45Y27         LUT3 (Prop_lut3_I1_O)        0.300    14.220 r  sha/reg_if_inst/sha_inst/core_inst/a[27]_i_1/O
+                         net (fo=1, routed)           0.000    14.220    sha/reg_if_inst/sha_inst/core_inst/a[27]
+    SLICE_X45Y27         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[27]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.434    14.775    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X45Y27         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[27]/C
+                         clock pessimism              0.188    14.963    
+                         clock uncertainty           -0.035    14.928    
+    SLICE_X45Y27         FDPE (Setup_fdpe_C_D)        0.075    15.003    sha/reg_if_inst/sha_inst/core_inst/a_reg[27]
+  -------------------------------------------------------------------
+                         required time                         15.003    
+                         arrival time                         -14.220    
+  -------------------------------------------------------------------
+                         slack                                  0.783    
+
+Slack (MET) :             0.861ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/a_reg[24]/D
+                            (rising edge-triggered cell FDCE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        9.025ns  (logic 4.213ns (46.681%)  route 4.812ns (53.319%))
+  Logic Levels:           13  (CARRY4=7 LUT2=1 LUT5=3 LUT6=2)
+  Clock Path Skew:        -0.110ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.775ns = ( 14.775 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     8.353 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[3]
+                         net (fo=2, routed)           0.796     9.148    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_4
+    SLICE_X43Y24         LUT5 (Prop_lut5_I4_O)        0.307     9.455 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4/O
+                         net (fo=2, routed)           0.570    10.025    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4_n_0
+    SLICE_X39Y24         LUT6 (Prop_lut6_I0_O)        0.124    10.149 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8/O
+                         net (fo=1, routed)           0.000    10.149    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8_n_0
+    SLICE_X39Y24         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    10.681 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    10.690    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_n_0
+    SLICE_X39Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.804 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    10.804    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3_n_0
+    SLICE_X39Y26         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    11.043 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__4/O[2]
+                         net (fo=3, routed)           0.597    11.641    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[22]
+    SLICE_X45Y26         LUT5 (Prop_lut5_I4_O)        0.302    11.943 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_i_1/O
+                         net (fo=2, routed)           0.574    12.517    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_i_1_n_0
+    SLICE_X46Y26         LUT6 (Prop_lut6_I0_O)        0.124    12.641 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_i_5/O
+                         net (fo=1, routed)           0.000    12.641    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_i_5_n_0
+    SLICE_X46Y26         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.376    13.017 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4/CO[3]
+                         net (fo=1, routed)           0.000    13.017    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_n_0
+    SLICE_X46Y27         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219    13.236 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5/O[0]
+                         net (fo=1, routed)           0.568    13.803    sha/reg_if_inst/sha_inst/core_inst/in14[24]
+    SLICE_X45Y27         LUT2 (Prop_lut2_I1_O)        0.295    14.098 r  sha/reg_if_inst/sha_inst/core_inst/a[24]_i_1/O
+                         net (fo=1, routed)           0.000    14.098    sha/reg_if_inst/sha_inst/core_inst/a[24]
+    SLICE_X45Y27         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[24]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.434    14.775    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X45Y27         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[24]/C
+                         clock pessimism              0.188    14.963    
+                         clock uncertainty           -0.035    14.928    
+    SLICE_X45Y27         FDCE (Setup_fdce_C_D)        0.031    14.959    sha/reg_if_inst/sha_inst/core_inst/a_reg[24]
+  -------------------------------------------------------------------
+                         required time                         14.959    
+                         arrival time                         -14.098    
+  -------------------------------------------------------------------
+                         slack                                  0.861    
+
+Slack (MET) :             0.887ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/a_reg[30]/D
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        9.045ns  (logic 4.450ns (49.199%)  route 4.595ns (50.801%))
+  Logic Levels:           13  (CARRY4=7 LUT3=1 LUT5=3 LUT6=2)
+  Clock Path Skew:        -0.108ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.777ns = ( 14.777 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     8.353 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[3]
+                         net (fo=2, routed)           0.796     9.148    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_4
+    SLICE_X43Y24         LUT5 (Prop_lut5_I4_O)        0.307     9.455 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4/O
+                         net (fo=2, routed)           0.570    10.025    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4_n_0
+    SLICE_X39Y24         LUT6 (Prop_lut6_I0_O)        0.124    10.149 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8/O
+                         net (fo=1, routed)           0.000    10.149    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8_n_0
+    SLICE_X39Y24         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    10.681 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    10.690    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_n_0
+    SLICE_X39Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.804 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    10.804    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3_n_0
+    SLICE_X39Y26         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    11.117 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__4/O[3]
+                         net (fo=3, routed)           0.489    11.606    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[23]
+    SLICE_X45Y27         LUT5 (Prop_lut5_I4_O)        0.306    11.912 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_i_4/O
+                         net (fo=2, routed)           0.625    12.537    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_i_4_n_0
+    SLICE_X46Y27         LUT6 (Prop_lut6_I0_O)        0.124    12.661 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_i_8/O
+                         net (fo=1, routed)           0.000    12.661    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_i_8_n_0
+    SLICE_X46Y27         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513    13.174 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5/CO[3]
+                         net (fo=1, routed)           0.000    13.174    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5_n_0
+    SLICE_X46Y28         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    13.413 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__6/O[2]
+                         net (fo=1, routed)           0.408    13.821    sha/reg_if_inst/sha_inst/core_inst/in14[30]
+    SLICE_X47Y28         LUT3 (Prop_lut3_I1_O)        0.297    14.118 r  sha/reg_if_inst/sha_inst/core_inst/a[30]_i_1/O
+                         net (fo=1, routed)           0.000    14.118    sha/reg_if_inst/sha_inst/core_inst/a[30]
+    SLICE_X47Y28         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[30]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.436    14.777    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X47Y28         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[30]/C
+                         clock pessimism              0.188    14.965    
+                         clock uncertainty           -0.035    14.930    
+    SLICE_X47Y28         FDPE (Setup_fdpe_C_D)        0.075    15.005    sha/reg_if_inst/sha_inst/core_inst/a_reg[30]
+  -------------------------------------------------------------------
+                         required time                         15.005    
+                         arrival time                         -14.118    
+  -------------------------------------------------------------------
+                         slack                                  0.887    
+
+Slack (MET) :             0.897ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/a_reg[21]/D
+                            (rising edge-triggered cell FDCE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        8.989ns  (logic 4.214ns (46.880%)  route 4.775ns (53.120%))
+  Logic Levels:           11  (CARRY4=6 LUT2=1 LUT5=3 LUT6=1)
+  Clock Path Skew:        -0.108ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.777ns = ( 14.777 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     8.353 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[3]
+                         net (fo=2, routed)           0.796     9.148    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_4
+    SLICE_X43Y24         LUT5 (Prop_lut5_I4_O)        0.307     9.455 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4/O
+                         net (fo=2, routed)           0.570    10.025    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4_n_0
+    SLICE_X39Y24         LUT6 (Prop_lut6_I0_O)        0.124    10.149 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8/O
+                         net (fo=1, routed)           0.000    10.149    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8_n_0
+    SLICE_X39Y24         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    10.681 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    10.690    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_n_0
+    SLICE_X39Y25         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    11.024 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3/O[1]
+                         net (fo=3, routed)           0.626    11.650    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[17]
+    SLICE_X45Y25         LUT5 (Prop_lut5_I4_O)        0.303    11.953 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3_i_2/O
+                         net (fo=2, routed)           0.521    12.474    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3_i_2_n_0
+    SLICE_X46Y25         CARRY4 (Prop_carry4_DI[2]_CO[3])
+                                                      0.404    12.878 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    12.878    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3_n_0
+    SLICE_X46Y26         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.323    13.201 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4/O[1]
+                         net (fo=1, routed)           0.555    13.756    sha/reg_if_inst/sha_inst/core_inst/in14[21]
+    SLICE_X44Y28         LUT2 (Prop_lut2_I1_O)        0.306    14.062 r  sha/reg_if_inst/sha_inst/core_inst/a[21]_i_1/O
+                         net (fo=1, routed)           0.000    14.062    sha/reg_if_inst/sha_inst/core_inst/a[21]
+    SLICE_X44Y28         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[21]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.436    14.777    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X44Y28         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[21]/C
+                         clock pessimism              0.188    14.965    
+                         clock uncertainty           -0.035    14.930    
+    SLICE_X44Y28         FDCE (Setup_fdce_C_D)        0.029    14.959    sha/reg_if_inst/sha_inst/core_inst/a_reg[21]
+  -------------------------------------------------------------------
+                         required time                         14.959    
+                         arrival time                         -14.062    
+  -------------------------------------------------------------------
+                         slack                                  0.897    
+
+Slack (MET) :             0.920ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/a_reg[20]/D
+                            (rising edge-triggered cell FDCE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        9.008ns  (logic 4.129ns (45.835%)  route 4.879ns (54.165%))
+  Logic Levels:           11  (CARRY4=6 LUT2=1 LUT5=3 LUT6=1)
+  Clock Path Skew:        -0.111ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.774ns = ( 14.774 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     8.353 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[3]
+                         net (fo=2, routed)           0.796     9.148    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_4
+    SLICE_X43Y24         LUT5 (Prop_lut5_I4_O)        0.307     9.455 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4/O
+                         net (fo=2, routed)           0.570    10.025    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4_n_0
+    SLICE_X39Y24         LUT6 (Prop_lut6_I0_O)        0.124    10.149 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8/O
+                         net (fo=1, routed)           0.000    10.149    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8_n_0
+    SLICE_X39Y24         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    10.681 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    10.690    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_n_0
+    SLICE_X39Y25         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    11.024 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3/O[1]
+                         net (fo=3, routed)           0.626    11.650    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[17]
+    SLICE_X45Y25         LUT5 (Prop_lut5_I4_O)        0.303    11.953 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3_i_2/O
+                         net (fo=2, routed)           0.521    12.474    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3_i_2_n_0
+    SLICE_X46Y25         CARRY4 (Prop_carry4_DI[2]_CO[3])
+                                                      0.404    12.878 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    12.878    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3_n_0
+    SLICE_X46Y26         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219    13.097 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4/O[0]
+                         net (fo=1, routed)           0.659    13.757    sha/reg_if_inst/sha_inst/core_inst/in14[20]
+    SLICE_X47Y26         LUT2 (Prop_lut2_I1_O)        0.325    14.082 r  sha/reg_if_inst/sha_inst/core_inst/a[20]_i_1/O
+                         net (fo=1, routed)           0.000    14.082    sha/reg_if_inst/sha_inst/core_inst/a[20]
+    SLICE_X47Y26         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[20]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.433    14.774    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X47Y26         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[20]/C
+                         clock pessimism              0.188    14.962    
+                         clock uncertainty           -0.035    14.927    
+    SLICE_X47Y26         FDCE (Setup_fdce_C_D)        0.075    15.002    sha/reg_if_inst/sha_inst/core_inst/a_reg[20]
+  -------------------------------------------------------------------
+                         required time                         15.002    
+                         arrival time                         -14.082    
+  -------------------------------------------------------------------
+                         slack                                  0.920    
+
+Slack (MET) :             0.940ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/a_reg[19]/D
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        8.946ns  (logic 4.025ns (44.992%)  route 4.921ns (55.008%))
+  Logic Levels:           12  (CARRY4=6 LUT3=1 LUT5=3 LUT6=2)
+  Clock Path Skew:        -0.108ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.777ns = ( 14.777 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219     8.257 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[0]
+                         net (fo=2, routed)           0.771     9.027    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_7
+    SLICE_X43Y23         LUT5 (Prop_lut5_I4_O)        0.295     9.322 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1_i_3/O
+                         net (fo=2, routed)           0.448     9.771    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1_i_3_n_0
+    SLICE_X39Y23         LUT6 (Prop_lut6_I0_O)        0.124     9.895 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1_i_7/O
+                         net (fo=1, routed)           0.000     9.895    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1_i_7_n_0
+    SLICE_X39Y23         CARRY4 (Prop_carry4_S[1]_O[2])
+                                                      0.580    10.475 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1/O[2]
+                         net (fo=3, routed)           0.721    11.196    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[10]
+    SLICE_X47Y23         LUT5 (Prop_lut5_I4_O)        0.302    11.498 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_i_1/O
+                         net (fo=2, routed)           0.537    12.035    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_i_1_n_0
+    SLICE_X46Y23         LUT6 (Prop_lut6_I0_O)        0.124    12.159 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_i_5/O
+                         net (fo=1, routed)           0.000    12.159    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_i_5_n_0
+    SLICE_X46Y23         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.376    12.535 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1/CO[3]
+                         net (fo=1, routed)           0.000    12.535    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_n_0
+    SLICE_X46Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    12.652 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    12.661    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__2_n_0
+    SLICE_X46Y25         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315    12.976 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3/O[3]
+                         net (fo=1, routed)           0.736    13.712    sha/reg_if_inst/sha_inst/core_inst/in14[19]
+    SLICE_X43Y30         LUT3 (Prop_lut3_I1_O)        0.307    14.019 r  sha/reg_if_inst/sha_inst/core_inst/a[19]_i_1/O
+                         net (fo=1, routed)           0.000    14.019    sha/reg_if_inst/sha_inst/core_inst/a[19]
+    SLICE_X43Y30         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[19]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.436    14.777    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X43Y30         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[19]/C
+                         clock pessimism              0.188    14.965    
+                         clock uncertainty           -0.035    14.930    
+    SLICE_X43Y30         FDPE (Setup_fdpe_C_D)        0.029    14.959    sha/reg_if_inst/sha_inst/core_inst/a_reg[19]
+  -------------------------------------------------------------------
+                         required time                         14.959    
+                         arrival time                         -14.019    
+  -------------------------------------------------------------------
+                         slack                                  0.940    
+
+Slack (MET) :             0.974ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/a_reg[22]/D
+                            (rising edge-triggered cell FDCE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        8.910ns  (logic 4.125ns (46.295%)  route 4.785ns (53.705%))
+  Logic Levels:           11  (CARRY4=6 LUT2=1 LUT5=3 LUT6=1)
+  Clock Path Skew:        -0.111ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.774ns = ( 14.774 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     8.353 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[3]
+                         net (fo=2, routed)           0.796     9.148    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_4
+    SLICE_X43Y24         LUT5 (Prop_lut5_I4_O)        0.307     9.455 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4/O
+                         net (fo=2, routed)           0.570    10.025    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4_n_0
+    SLICE_X39Y24         LUT6 (Prop_lut6_I0_O)        0.124    10.149 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8/O
+                         net (fo=1, routed)           0.000    10.149    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8_n_0
+    SLICE_X39Y24         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    10.681 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    10.690    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_n_0
+    SLICE_X39Y25         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    11.024 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3/O[1]
+                         net (fo=3, routed)           0.626    11.650    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[17]
+    SLICE_X45Y25         LUT5 (Prop_lut5_I4_O)        0.303    11.953 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3_i_2/O
+                         net (fo=2, routed)           0.521    12.474    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3_i_2_n_0
+    SLICE_X46Y25         CARRY4 (Prop_carry4_DI[2]_CO[3])
+                                                      0.404    12.878 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    12.878    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3_n_0
+    SLICE_X46Y26         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    13.117 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4/O[2]
+                         net (fo=1, routed)           0.565    13.683    sha/reg_if_inst/sha_inst/core_inst/in14[22]
+    SLICE_X43Y27         LUT2 (Prop_lut2_I1_O)        0.301    13.984 r  sha/reg_if_inst/sha_inst/core_inst/a[22]_i_1/O
+                         net (fo=1, routed)           0.000    13.984    sha/reg_if_inst/sha_inst/core_inst/a[22]
+    SLICE_X43Y27         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[22]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.433    14.774    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X43Y27         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[22]/C
+                         clock pessimism              0.188    14.962    
+                         clock uncertainty           -0.035    14.927    
+    SLICE_X43Y27         FDCE (Setup_fdce_C_D)        0.031    14.958    sha/reg_if_inst/sha_inst/core_inst/a_reg[22]
+  -------------------------------------------------------------------
+                         required time                         14.958    
+                         arrival time                         -13.984    
+  -------------------------------------------------------------------
+                         slack                                  0.974    
+
+Slack (MET) :             0.996ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/a_reg[26]/D
+                            (rising edge-triggered cell FDCE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        8.890ns  (logic 4.239ns (47.681%)  route 4.651ns (52.319%))
+  Logic Levels:           13  (CARRY4=7 LUT2=1 LUT5=3 LUT6=2)
+  Clock Path Skew:        -0.107ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.778ns = ( 14.778 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     8.353 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[3]
+                         net (fo=2, routed)           0.796     9.148    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_4
+    SLICE_X43Y24         LUT5 (Prop_lut5_I4_O)        0.307     9.455 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4/O
+                         net (fo=2, routed)           0.570    10.025    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4_n_0
+    SLICE_X39Y24         LUT6 (Prop_lut6_I0_O)        0.124    10.149 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8/O
+                         net (fo=1, routed)           0.000    10.149    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8_n_0
+    SLICE_X39Y24         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    10.681 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    10.690    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_n_0
+    SLICE_X39Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.804 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    10.804    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3_n_0
+    SLICE_X39Y26         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    11.043 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__4/O[2]
+                         net (fo=3, routed)           0.597    11.641    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[22]
+    SLICE_X45Y26         LUT5 (Prop_lut5_I4_O)        0.302    11.943 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_i_1/O
+                         net (fo=2, routed)           0.574    12.517    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_i_1_n_0
+    SLICE_X46Y26         LUT6 (Prop_lut6_I0_O)        0.124    12.641 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_i_5/O
+                         net (fo=1, routed)           0.000    12.641    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_i_5_n_0
+    SLICE_X46Y26         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.376    13.017 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4/CO[3]
+                         net (fo=1, routed)           0.000    13.017    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__4_n_0
+    SLICE_X46Y27         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    13.256 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__5/O[2]
+                         net (fo=1, routed)           0.407    13.663    sha/reg_if_inst/sha_inst/core_inst/in14[26]
+    SLICE_X47Y29         LUT2 (Prop_lut2_I1_O)        0.301    13.964 r  sha/reg_if_inst/sha_inst/core_inst/a[26]_i_1/O
+                         net (fo=1, routed)           0.000    13.964    sha/reg_if_inst/sha_inst/core_inst/a[26]
+    SLICE_X47Y29         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[26]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.437    14.778    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X47Y29         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[26]/C
+                         clock pessimism              0.188    14.966    
+                         clock uncertainty           -0.035    14.931    
+    SLICE_X47Y29         FDCE (Setup_fdce_C_D)        0.029    14.960    sha/reg_if_inst/sha_inst/core_inst/a_reg[26]
+  -------------------------------------------------------------------
+                         required time                         14.960    
+                         arrival time                         -13.964    
+  -------------------------------------------------------------------
+                         slack                                  0.996    
+
+Slack (MET) :             1.087ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/e_reg[31]/D
+                            (rising edge-triggered cell FDCE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        8.845ns  (logic 4.473ns (50.571%)  route 4.372ns (49.428%))
+  Logic Levels:           13  (CARRY4=8 LUT2=2 LUT5=2 LUT6=1)
+  Clock Path Skew:        -0.108ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.777ns = ( 14.777 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     8.353 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[3]
+                         net (fo=2, routed)           0.796     9.148    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_4
+    SLICE_X43Y24         LUT5 (Prop_lut5_I4_O)        0.307     9.455 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4/O
+                         net (fo=2, routed)           0.570    10.025    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4_n_0
+    SLICE_X39Y24         LUT6 (Prop_lut6_I0_O)        0.124    10.149 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8/O
+                         net (fo=1, routed)           0.000    10.149    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8_n_0
+    SLICE_X39Y24         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    10.681 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    10.690    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_n_0
+    SLICE_X39Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.804 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    10.804    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3_n_0
+    SLICE_X39Y26         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.918 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__4/CO[3]
+                         net (fo=1, routed)           0.000    10.918    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__4_n_0
+    SLICE_X39Y27         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    11.140 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__5/O[0]
+                         net (fo=3, routed)           0.584    11.725    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[24]
+    SLICE_X41Y28         LUT2 (Prop_lut2_I1_O)        0.299    12.024 r  sha/reg_if_inst/sha_inst/core_inst/e0_carry__5_i_4/O
+                         net (fo=1, routed)           0.000    12.024    sha/reg_if_inst/sha_inst/core_inst/e0_carry__5_i_4_n_0
+    SLICE_X41Y28         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    12.556 r  sha/reg_if_inst/sha_inst/core_inst/e0_carry__5/CO[3]
+                         net (fo=1, routed)           0.000    12.556    sha/reg_if_inst/sha_inst/core_inst/e0_carry__5_n_0
+    SLICE_X41Y29         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    12.869 r  sha/reg_if_inst/sha_inst/core_inst/e0_carry__6/O[3]
+                         net (fo=1, routed)           0.714    13.583    sha/reg_if_inst/sha_inst/core_inst/in19[31]
+    SLICE_X41Y30         LUT2 (Prop_lut2_I1_O)        0.335    13.918 r  sha/reg_if_inst/sha_inst/core_inst/e[31]_i_1/O
+                         net (fo=1, routed)           0.000    13.918    sha/reg_if_inst/sha_inst/core_inst/e[31]
+    SLICE_X41Y30         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/e_reg[31]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.436    14.777    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X41Y30         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/e_reg[31]/C
+                         clock pessimism              0.188    14.965    
+                         clock uncertainty           -0.035    14.930    
+    SLICE_X41Y30         FDCE (Setup_fdce_C_D)        0.075    15.005    sha/reg_if_inst/sha_inst/core_inst/e_reg[31]
+  -------------------------------------------------------------------
+                         required time                         15.005    
+                         arrival time                         -13.918    
+  -------------------------------------------------------------------
+                         slack                                  1.087    
+
+Slack (MET) :             1.090ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/e_reg[26]/D
+                            (rising edge-triggered cell FDCE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        8.886ns  (logic 4.415ns (49.685%)  route 4.471ns (50.315%))
+  Logic Levels:           12  (CARRY4=7 LUT2=2 LUT5=2 LUT6=1)
+  Clock Path Skew:        -0.107ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.778ns = ( 14.778 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     8.353 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[3]
+                         net (fo=2, routed)           0.796     9.148    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_4
+    SLICE_X43Y24         LUT5 (Prop_lut5_I4_O)        0.307     9.455 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4/O
+                         net (fo=2, routed)           0.570    10.025    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4_n_0
+    SLICE_X39Y24         LUT6 (Prop_lut6_I0_O)        0.124    10.149 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8/O
+                         net (fo=1, routed)           0.000    10.149    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8_n_0
+    SLICE_X39Y24         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    10.681 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    10.690    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_n_0
+    SLICE_X39Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.804 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    10.804    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3_n_0
+    SLICE_X39Y26         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    11.138 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__4/O[1]
+                         net (fo=3, routed)           0.431    11.569    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[21]
+    SLICE_X41Y27         LUT2 (Prop_lut2_I1_O)        0.303    11.872 r  sha/reg_if_inst/sha_inst/core_inst/e0_carry__4_i_3/O
+                         net (fo=1, routed)           0.000    11.872    sha/reg_if_inst/sha_inst/core_inst/e0_carry__4_i_3_n_0
+    SLICE_X41Y27         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    12.422 r  sha/reg_if_inst/sha_inst/core_inst/e0_carry__4/CO[3]
+                         net (fo=1, routed)           0.000    12.422    sha/reg_if_inst/sha_inst/core_inst/e0_carry__4_n_0
+    SLICE_X41Y28         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    12.661 r  sha/reg_if_inst/sha_inst/core_inst/e0_carry__5/O[2]
+                         net (fo=1, routed)           0.967    13.628    sha/reg_if_inst/sha_inst/core_inst/in19[26]
+    SLICE_X46Y29         LUT2 (Prop_lut2_I1_O)        0.331    13.959 r  sha/reg_if_inst/sha_inst/core_inst/e[26]_i_1/O
+                         net (fo=1, routed)           0.000    13.959    sha/reg_if_inst/sha_inst/core_inst/e[26]
+    SLICE_X46Y29         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/e_reg[26]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.437    14.778    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X46Y29         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/e_reg[26]/C
+                         clock pessimism              0.188    14.966    
+                         clock uncertainty           -0.035    14.931    
+    SLICE_X46Y29         FDCE (Setup_fdce_C_D)        0.118    15.049    sha/reg_if_inst/sha_inst/core_inst/e_reg[26]
+  -------------------------------------------------------------------
+                         required time                         15.049    
+                         arrival time                         -13.959    
+  -------------------------------------------------------------------
+                         slack                                  1.090    
+
+Slack (MET) :             1.192ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/a_reg[15]/D
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        8.734ns  (logic 3.933ns (45.029%)  route 4.801ns (54.971%))
+  Logic Levels:           11  (CARRY4=5 LUT3=1 LUT5=3 LUT6=2)
+  Clock Path Skew:        -0.113ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.772ns = ( 14.772 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219     8.257 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[0]
+                         net (fo=2, routed)           0.771     9.027    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_7
+    SLICE_X43Y23         LUT5 (Prop_lut5_I4_O)        0.295     9.322 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1_i_3/O
+                         net (fo=2, routed)           0.448     9.771    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1_i_3_n_0
+    SLICE_X39Y23         LUT6 (Prop_lut6_I0_O)        0.124     9.895 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1_i_7/O
+                         net (fo=1, routed)           0.000     9.895    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1_i_7_n_0
+    SLICE_X39Y23         CARRY4 (Prop_carry4_S[1]_O[2])
+                                                      0.580    10.475 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1/O[2]
+                         net (fo=3, routed)           0.721    11.196    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[10]
+    SLICE_X47Y23         LUT5 (Prop_lut5_I4_O)        0.302    11.498 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_i_1/O
+                         net (fo=2, routed)           0.537    12.035    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_i_1_n_0
+    SLICE_X46Y23         LUT6 (Prop_lut6_I0_O)        0.124    12.159 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_i_5/O
+                         net (fo=1, routed)           0.000    12.159    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_i_5_n_0
+    SLICE_X46Y23         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.376    12.535 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1/CO[3]
+                         net (fo=1, routed)           0.000    12.535    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_n_0
+    SLICE_X46Y24         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315    12.850 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__2/O[3]
+                         net (fo=1, routed)           0.626    13.476    sha/reg_if_inst/sha_inst/core_inst/in14[15]
+    SLICE_X47Y24         LUT3 (Prop_lut3_I1_O)        0.332    13.808 r  sha/reg_if_inst/sha_inst/core_inst/a[15]_i_1/O
+                         net (fo=1, routed)           0.000    13.808    sha/reg_if_inst/sha_inst/core_inst/a[15]
+    SLICE_X47Y24         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[15]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.431    14.772    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X47Y24         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[15]/C
+                         clock pessimism              0.188    14.960    
+                         clock uncertainty           -0.035    14.925    
+    SLICE_X47Y24         FDPE (Setup_fdpe_C_D)        0.075    15.000    sha/reg_if_inst/sha_inst/core_inst/a_reg[15]
+  -------------------------------------------------------------------
+                         required time                         15.000    
+                         arrival time                         -13.808    
+  -------------------------------------------------------------------
+                         slack                                  1.192    
+
+Slack (MET) :             1.194ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/a_reg[16]/D
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        8.733ns  (logic 3.946ns (45.187%)  route 4.787ns (54.813%))
+  Logic Levels:           12  (CARRY4=6 LUT3=1 LUT5=3 LUT6=2)
+  Clock Path Skew:        -0.113ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.772ns = ( 14.772 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219     8.257 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[0]
+                         net (fo=2, routed)           0.771     9.027    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_7
+    SLICE_X43Y23         LUT5 (Prop_lut5_I4_O)        0.295     9.322 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1_i_3/O
+                         net (fo=2, routed)           0.448     9.771    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1_i_3_n_0
+    SLICE_X39Y23         LUT6 (Prop_lut6_I0_O)        0.124     9.895 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1_i_7/O
+                         net (fo=1, routed)           0.000     9.895    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1_i_7_n_0
+    SLICE_X39Y23         CARRY4 (Prop_carry4_S[1]_O[2])
+                                                      0.580    10.475 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1/O[2]
+                         net (fo=3, routed)           0.721    11.196    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[10]
+    SLICE_X47Y23         LUT5 (Prop_lut5_I4_O)        0.302    11.498 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_i_1/O
+                         net (fo=2, routed)           0.537    12.035    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_i_1_n_0
+    SLICE_X46Y23         LUT6 (Prop_lut6_I0_O)        0.124    12.159 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_i_5/O
+                         net (fo=1, routed)           0.000    12.159    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_i_5_n_0
+    SLICE_X46Y23         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.376    12.535 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1/CO[3]
+                         net (fo=1, routed)           0.000    12.535    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_n_0
+    SLICE_X46Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    12.652 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    12.661    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__2_n_0
+    SLICE_X46Y25         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219    12.880 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3/O[0]
+                         net (fo=1, routed)           0.602    13.482    sha/reg_if_inst/sha_inst/core_inst/in14[16]
+    SLICE_X47Y24         LUT3 (Prop_lut3_I1_O)        0.324    13.806 r  sha/reg_if_inst/sha_inst/core_inst/a[16]_i_1/O
+                         net (fo=1, routed)           0.000    13.806    sha/reg_if_inst/sha_inst/core_inst/a[16]
+    SLICE_X47Y24         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[16]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.431    14.772    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X47Y24         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[16]/C
+                         clock pessimism              0.188    14.960    
+                         clock uncertainty           -0.035    14.925    
+    SLICE_X47Y24         FDPE (Setup_fdpe_C_D)        0.075    15.000    sha/reg_if_inst/sha_inst/core_inst/a_reg[16]
+  -------------------------------------------------------------------
+                         required time                         15.000    
+                         arrival time                         -13.806    
+  -------------------------------------------------------------------
+                         slack                                  1.194    
+
+Slack (MET) :             1.237ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/e_reg[30]/D
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        8.695ns  (logic 4.394ns (50.535%)  route 4.301ns (49.465%))
+  Logic Levels:           13  (CARRY4=8 LUT2=1 LUT3=1 LUT5=2 LUT6=1)
+  Clock Path Skew:        -0.108ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.777ns = ( 14.777 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     8.353 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[3]
+                         net (fo=2, routed)           0.796     9.148    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_4
+    SLICE_X43Y24         LUT5 (Prop_lut5_I4_O)        0.307     9.455 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4/O
+                         net (fo=2, routed)           0.570    10.025    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4_n_0
+    SLICE_X39Y24         LUT6 (Prop_lut6_I0_O)        0.124    10.149 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8/O
+                         net (fo=1, routed)           0.000    10.149    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8_n_0
+    SLICE_X39Y24         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    10.681 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    10.690    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_n_0
+    SLICE_X39Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.804 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    10.804    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3_n_0
+    SLICE_X39Y26         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.918 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__4/CO[3]
+                         net (fo=1, routed)           0.000    10.918    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__4_n_0
+    SLICE_X39Y27         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    11.140 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__5/O[0]
+                         net (fo=3, routed)           0.584    11.725    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[24]
+    SLICE_X41Y28         LUT2 (Prop_lut2_I1_O)        0.299    12.024 r  sha/reg_if_inst/sha_inst/core_inst/e0_carry__5_i_4/O
+                         net (fo=1, routed)           0.000    12.024    sha/reg_if_inst/sha_inst/core_inst/e0_carry__5_i_4_n_0
+    SLICE_X41Y28         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    12.556 r  sha/reg_if_inst/sha_inst/core_inst/e0_carry__5/CO[3]
+                         net (fo=1, routed)           0.000    12.556    sha/reg_if_inst/sha_inst/core_inst/e0_carry__5_n_0
+    SLICE_X41Y29         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    12.795 r  sha/reg_if_inst/sha_inst/core_inst/e0_carry__6/O[2]
+                         net (fo=1, routed)           0.644    13.438    sha/reg_if_inst/sha_inst/core_inst/in19[30]
+    SLICE_X41Y30         LUT3 (Prop_lut3_I1_O)        0.330    13.768 r  sha/reg_if_inst/sha_inst/core_inst/e[30]_i_1/O
+                         net (fo=1, routed)           0.000    13.768    sha/reg_if_inst/sha_inst/core_inst/e[30]
+    SLICE_X41Y30         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/e_reg[30]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.436    14.777    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X41Y30         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/e_reg[30]/C
+                         clock pessimism              0.188    14.965    
+                         clock uncertainty           -0.035    14.930    
+    SLICE_X41Y30         FDPE (Setup_fdpe_C_D)        0.075    15.005    sha/reg_if_inst/sha_inst/core_inst/e_reg[30]
+  -------------------------------------------------------------------
+                         required time                         15.005    
+                         arrival time                         -13.768    
+  -------------------------------------------------------------------
+                         slack                                  1.237    
+
+Slack (MET) :             1.243ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/e_reg[25]/D
+                            (rising edge-triggered cell FDCE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        8.687ns  (logic 4.477ns (51.539%)  route 4.210ns (48.461%))
+  Logic Levels:           12  (CARRY4=7 LUT2=2 LUT5=2 LUT6=1)
+  Clock Path Skew:        -0.110ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.775ns = ( 14.775 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     8.353 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[3]
+                         net (fo=2, routed)           0.796     9.148    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_4
+    SLICE_X43Y24         LUT5 (Prop_lut5_I4_O)        0.307     9.455 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4/O
+                         net (fo=2, routed)           0.570    10.025    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_4_n_0
+    SLICE_X39Y24         LUT6 (Prop_lut6_I0_O)        0.124    10.149 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8/O
+                         net (fo=1, routed)           0.000    10.149    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_i_8_n_0
+    SLICE_X39Y24         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    10.681 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    10.690    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__2_n_0
+    SLICE_X39Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.804 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    10.804    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__3_n_0
+    SLICE_X39Y26         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    11.138 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__4/O[1]
+                         net (fo=3, routed)           0.431    11.569    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[21]
+    SLICE_X41Y27         LUT2 (Prop_lut2_I1_O)        0.303    11.872 r  sha/reg_if_inst/sha_inst/core_inst/e0_carry__4_i_3/O
+                         net (fo=1, routed)           0.000    11.872    sha/reg_if_inst/sha_inst/core_inst/e0_carry__4_i_3_n_0
+    SLICE_X41Y27         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    12.422 r  sha/reg_if_inst/sha_inst/core_inst/e0_carry__4/CO[3]
+                         net (fo=1, routed)           0.000    12.422    sha/reg_if_inst/sha_inst/core_inst/e0_carry__4_n_0
+    SLICE_X41Y28         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    12.756 r  sha/reg_if_inst/sha_inst/core_inst/e0_carry__5/O[1]
+                         net (fo=1, routed)           0.706    13.462    sha/reg_if_inst/sha_inst/core_inst/in19[25]
+    SLICE_X45Y27         LUT2 (Prop_lut2_I1_O)        0.298    13.760 r  sha/reg_if_inst/sha_inst/core_inst/e[25]_i_1/O
+                         net (fo=1, routed)           0.000    13.760    sha/reg_if_inst/sha_inst/core_inst/e[25]
+    SLICE_X45Y27         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/e_reg[25]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.434    14.775    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X45Y27         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/e_reg[25]/C
+                         clock pessimism              0.188    14.963    
+                         clock uncertainty           -0.035    14.928    
+    SLICE_X45Y27         FDCE (Setup_fdce_C_D)        0.075    15.003    sha/reg_if_inst/sha_inst/core_inst/e_reg[25]
+  -------------------------------------------------------------------
+                         required time                         15.003    
+                         arrival time                         -13.760    
+  -------------------------------------------------------------------
+                         slack                                  1.243    
+
+Slack (MET) :             1.260ns  (required time - arrival time)
+  Source:                 sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            sha/reg_if_inst/sha_inst/core_inst/a_reg[17]/D
+                            (rising edge-triggered cell FDCE clocked by sys_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             sys_clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (sys_clk rise@10.000ns - sys_clk rise@0.000ns)
+  Data Path Delay:        8.625ns  (logic 4.032ns (46.749%)  route 4.593ns (53.251%))
+  Logic Levels:           12  (CARRY4=6 LUT2=1 LUT5=3 LUT6=2)
+  Clock Path Skew:        -0.111ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.774ns = ( 14.774 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.073ns
+    Clock Pessimism Removal (CPR):    0.188ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk rise edge)    0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.552     5.073    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X32Y20         FDPE                                         r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y20         FDPE (Prop_fdpe_C_Q)         0.419     5.492 r  sha/reg_if_inst/sha_inst/core_inst/g_reg[3]/Q
+                         net (fo=4, routed)           0.871     6.363    sha/reg_if_inst/sha_inst/core_inst/g_reg_n_0_[3]
+    SLICE_X30Y21         LUT5 (Prop_lut5_I2_O)        0.297     6.660 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4/O
+                         net (fo=2, routed)           0.828     7.488    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_i_4_n_0
+    SLICE_X30Y23         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     8.038 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.038    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__0_n_0
+    SLICE_X30Y24         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219     8.257 r  sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1/O[0]
+                         net (fo=2, routed)           0.771     9.027    sha/reg_if_inst/sha_inst/core_inst/temp1__0_carry__1_n_7
+    SLICE_X43Y23         LUT5 (Prop_lut5_I4_O)        0.295     9.322 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1_i_3/O
+                         net (fo=2, routed)           0.448     9.771    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1_i_3_n_0
+    SLICE_X39Y23         LUT6 (Prop_lut6_I0_O)        0.124     9.895 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1_i_7/O
+                         net (fo=1, routed)           0.000     9.895    sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1_i_7_n_0
+    SLICE_X39Y23         CARRY4 (Prop_carry4_S[1]_O[2])
+                                                      0.580    10.475 r  sha/reg_if_inst/sha_inst/core_inst/temp1__94_carry__1/O[2]
+                         net (fo=3, routed)           0.721    11.196    sha/reg_if_inst/sha_inst/core_inst/p_1_in_0[10]
+    SLICE_X47Y23         LUT5 (Prop_lut5_I4_O)        0.302    11.498 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_i_1/O
+                         net (fo=2, routed)           0.537    12.035    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_i_1_n_0
+    SLICE_X46Y23         LUT6 (Prop_lut6_I0_O)        0.124    12.159 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_i_5/O
+                         net (fo=1, routed)           0.000    12.159    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_i_5_n_0
+    SLICE_X46Y23         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.376    12.535 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1/CO[3]
+                         net (fo=1, routed)           0.000    12.535    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__1_n_0
+    SLICE_X46Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    12.652 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__2/CO[3]
+                         net (fo=1, routed)           0.009    12.661    sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__2_n_0
+    SLICE_X46Y25         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.323    12.984 r  sha/reg_if_inst/sha_inst/core_inst/a0__0_carry__3/O[1]
+                         net (fo=1, routed)           0.408    13.392    sha/reg_if_inst/sha_inst/core_inst/in14[17]
+    SLICE_X47Y26         LUT2 (Prop_lut2_I1_O)        0.306    13.698 r  sha/reg_if_inst/sha_inst/core_inst/a[17]_i_1/O
+                         net (fo=1, routed)           0.000    13.698    sha/reg_if_inst/sha_inst/core_inst/a[17]
+    SLICE_X47Y26         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[17]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk rise edge)   10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=3069, routed)        1.433    14.774    sha/reg_if_inst/sha_inst/core_inst/clk_IBUF_BUFG
+    SLICE_X47Y26         FDCE                                         r  sha/reg_if_inst/sha_inst/core_inst/a_reg[17]/C
+                         clock pessimism              0.188    14.962    
+                         clock uncertainty           -0.035    14.927    
+    SLICE_X47Y26         FDCE (Setup_fdce_C_D)        0.031    14.958    sha/reg_if_inst/sha_inst/core_inst/a_reg[17]
+  -------------------------------------------------------------------
+                         required time                         14.958    
+                         arrival time                         -13.698    
+  -------------------------------------------------------------------
+                         slack                                  1.260    
+
+
+
+
