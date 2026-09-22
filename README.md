@@ -32,7 +32,7 @@ The second attempt is in [asic/openlane_axi_lite](asic/openlane_axi_lite/README.
 
 In self-checking Vivado RTL simulation, hashing an empty message took:
 
-| PicoRV32 path | End-to-end cycles | Time at an assumed 100 MHz |
+| PicoRV32 path | End-to-end cycles | Time at 100 MHz |
 |---|---:|---:|
 | RV32I software SHA-256 | 30,169 | 301.69 us |
 | AXI-Lite SHA-256 accelerator | 732 | 7.32 us |
