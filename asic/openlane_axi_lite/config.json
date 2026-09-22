@@ -15,8 +15,12 @@
   "DIE_AREA": [0, 0, 600, 600],
   "CORE_AREA": [10, 10, 590, 590],
   "pdk::sky130A": {
-    "STD_CELL_LIBRARY": "sky130_fd_sc_hd",
-    "FP_CORE_UTIL": 40,
-    "PL_TARGET_DENSITY_PCT": 50
+   "STD_CELL_LIBRARY": "sky130_fd_sc_hd",
+  "FP_CORE_UTIL": 40,
+  "PL_TARGET_DENSITY_PCT": 50,
+  "DEFAULT_CORNER": "max_ss_100C_1v60",
+  "DESIGN_REPAIR_MAX_SLEW_PCT": 30,
+  "DESIGN_REPAIR_MAX_CAP_PCT": 30,
+  "RUN_POST_GRT_DESIGN_REPAIR": true
   }
 }
