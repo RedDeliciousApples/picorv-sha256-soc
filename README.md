@@ -42,10 +42,12 @@ SHA256 accelerator on this PicoRV32 SoC.
 
 This is a comparison of cycle count in simulation. It does NOT mean
 Vivado simulation can compute SHA hashes faster than a desktop CPU,
-and it is not a physical-board benchmark. Implementation met 100 MHz with +0.079 ns setup slack and +0.036 ns hold slack.
-Also, the accelerator gets an already padded block, but the software library
-does its own padding. See [methodology and results](docs/PERFORMANCE.md) and
-the [post-route reports](results/fpga/2026-09-19-vivado-2026.1-100mhz/).
+and it is not a physical-board benchmark. A  Vivado 2025.2
+implementation meets 100 MHz with +0.522 ns setup
+WNS and +0.020 ns hold WHS. Also, the accelerator gets an already padded
+block, but the software library does its own padding. See [methodology and
+results](docs/PERFORMANCE.md) and the [post-route
+reports](results/fpga/2026-09-21-vivado-2025.2-100mhz/).
 
 ## Current Status
 Works with a 512-bit block, all tests pass. 
