@@ -35,6 +35,7 @@ module axi_lite_2peripheral_decoder (
     output logic        m_wready,
 
     // Write response channel
+    output logic [1:0]  m_bresp,
     output logic        m_bvalid,
     input  logic        m_bready,
 
@@ -46,6 +47,7 @@ module axi_lite_2peripheral_decoder (
 
     // Read data channel
     output logic [31:0] m_rdata,
+    output logic [1:0]  m_rresp,
     output logic        m_rvalid,
     input  logic        m_rready,
 
@@ -108,6 +110,12 @@ module axi_lite_2peripheral_decoder (
 
     wire ar_sel_ram = (m_araddr[31:16] == 16'h0000);
     wire ar_sel_sha = (m_araddr[31:16] == 16'h1000);
+
+    // On DECERR, you get 0xDEAD_BEEF back on read, or BRESP 2'b11 on write
+    localparam logic [1:0]  RESP_OKAY    = 2'b00;
+    localparam logic [1:0]  RESP_DECERR  = 2'b11;
+    localparam logic [31:0] DECERR_RDATA = 32'hDEAD_BEEF;
+
     // -----
     // Write-side buffers
     // -----
@@ -126,13 +134,16 @@ module axi_lite_2peripheral_decoder (
     logic        write_active;
     logic        write_to_ram;
     logic        write_to_sha;
+    // write was accepted but matched no peripheral
+    logic        write_decerr;
+    assign write_decerr = write_active && !write_to_ram && !write_to_sha;
     //need these to avoid duplicate writes
     logic periph_aw_done;
     logic periph_w_done;
 
     
 
-    assign m_awready = !aw_have && !write_active && (aw_sel_ram || aw_sel_sha);
+    assign m_awready = !aw_have && !write_active;
     assign m_wready  = !w_have  && !write_active;
 
     //--------------
@@ -162,6 +173,7 @@ module axi_lite_2peripheral_decoder (
         sha_bready  = 1'b0;
 
         m_bvalid    = 1'b0;
+        m_bresp     = RESP_OKAY;
 
 
         if (write_to_ram) begin
@@ -177,6 +189,9 @@ module axi_lite_2peripheral_decoder (
 
             m_bvalid    = sha_bvalid;
             sha_bready  = m_bready;
+        end else if (write_decerr) begin
+            m_bvalid    = 1'b1;
+            m_bresp     = RESP_DECERR;
         end
     end
 
@@ -257,13 +272,15 @@ module axi_lite_2peripheral_decoder (
         
             // when peripheral has address and data, clear our aw_have and w_have variables
 
-            if (write_active &&
+            // (a DECERR write has no peripheral to wait for)
+            if (write_decerr ||
+                (write_active &&
                 ((periph_aw_done) ||
                  (write_to_ram && ram_awvalid && ram_awready) ||
                  (write_to_sha && sha_awvalid && sha_awready)) &&
                 ((periph_w_done) ||
                  (write_to_ram && ram_wvalid && ram_wready) ||
-                 (write_to_sha && sha_wvalid && sha_wready))) begin
+                 (write_to_sha && sha_wvalid && sha_wready)))) begin
             
                 aw_have <= 1'b0;
                 w_have  <= 1'b0;
@@ -334,6 +351,9 @@ module axi_lite_2peripheral_decoder (
     logic read_active;
     logic read_from_ram;
     logic read_from_sha;
+    // read was accepted but matched no peripheral
+    logic read_decerr;
+    assign read_decerr = read_active && !read_from_ram && !read_from_sha;
 
 
 
@@ -356,7 +376,8 @@ module axi_lite_2peripheral_decoder (
                 sha_arvalid = m_arvalid;
                 m_arready   = sha_arready;
             end else begin
-                m_arready = 1'b0;
+                // unmapped: accept it, then answer with DECERR
+                m_arready = 1'b1;
             end
         end
     end
@@ -369,6 +390,7 @@ module axi_lite_2peripheral_decoder (
 
         m_rvalid   = 1'b0;
         m_rdata    = 32'd0;
+        m_rresp    = RESP_OKAY;
 
         if (read_from_ram) begin
             m_rvalid   = ram_rvalid;
@@ -378,6 +400,10 @@ module axi_lite_2peripheral_decoder (
             m_rvalid   = sha_rvalid;
             m_rdata    = sha_rdata;
             sha_rready = m_rready;
+        end else if (read_decerr) begin
+            m_rvalid   = 1'b1;
+            m_rdata    = DECERR_RDATA;
+            m_rresp    = RESP_DECERR;
         end
     end
     

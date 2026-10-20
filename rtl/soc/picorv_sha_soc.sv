@@ -54,6 +54,7 @@ module picorv_sha_soc #(
     logic [31:0] cpu_wdata;
     logic [3:0]  cpu_wstrb;
 
+    logic [1:0]  cpu_bresp_unused;
     logic        cpu_bvalid;
     logic        cpu_bready;
 
@@ -65,6 +66,7 @@ module picorv_sha_soc #(
     logic        cpu_rvalid;
     logic        cpu_rready;
     logic [31:0] cpu_rdata;
+    logic [1:0]  cpu_rresp_unused;
 
     // ============================================================
     // Decoder -> RAM AXI wires
@@ -213,6 +215,7 @@ module picorv_sha_soc #(
         .m_wvalid  (cpu_wvalid),
         .m_wready  (cpu_wready),
 
+        .m_bresp   (cpu_bresp_unused),
         .m_bvalid  (cpu_bvalid),
         .m_bready  (cpu_bready),
 
@@ -222,6 +225,7 @@ module picorv_sha_soc #(
         .m_arready (cpu_arready),
 
         .m_rdata   (cpu_rdata),
+        .m_rresp   (cpu_rresp_unused),
         .m_rvalid  (cpu_rvalid),
         .m_rready  (cpu_rready),
 
