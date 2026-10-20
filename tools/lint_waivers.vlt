@@ -1,0 +1,25 @@
+// Lint waivers, read by tools/lint.sh
+`verilator_config
+
+// third party code
+lint_off -file "*/third_party/picorv32.v"
+
+// AWPROT/ARPROT are not used, and only the low address bits are decoded
+lint_off -rule UNUSEDSIGNAL -file "*/axi_lite_ram.sv"       -match "*prot*"
+lint_off -rule UNUSEDSIGNAL -file "*/axi_lite_ram.sv"       -match "*addr*"
+lint_off -rule UNUSEDSIGNAL -file "*/sha256_axi_lite.sv"    -match "*prot*"
+lint_off -rule UNUSEDSIGNAL -file "*/sha256_axi_lite.sv"    -match "*addr*"
+
+// Reads are combinational, so it's fine for rd_en to be unused
+lint_off -rule UNUSEDSIGNAL -file "*/sha256_reg_if.sv"      -match "*rd_en*"
+
+// PicoRV32 optional interfaces are disabled
+lint_off -rule UNUSEDSIGNAL -file "*/picorv_sha_soc.sv"     -match "*pcpi_*"
+lint_off -rule UNUSEDSIGNAL -file "*/picorv_sha_soc.sv"     -match "*eoi*"
+lint_off -rule UNUSEDSIGNAL -file "*/picorv_sha_soc.sv"     -match "*trace_*"
+
+// It's ok if resets mismatch, since we use synchronized reset (reset_n_internal) in picorv_sha_soc
+lint_off -rule SYNCASYNCNET -file "*/picorv_sha_soc.sv"
+
+// sha256_block_top is in sha256_top.sv
+lint_off -rule DECLFILENAME -file "*/sha256_top.sv"
