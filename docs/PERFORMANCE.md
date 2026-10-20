@@ -5,35 +5,35 @@ clock period, but it is not a measured FPGA maximum clock frequency.
 
 ## Baseline
 
-Measured with Vivado 2025.2 behavioral simulation on August 4, 2026.
+Measured with Vivado 2026.1 behavioral simulation on October 20, 2026.
 
 | Measurement | Cycles | Time at 100 MHz |
 |---|---:|---:|
-| SHA block latency, empty string | 67 | 670 ns |
-| SHA block latency, `abc` | 67 | 670 ns |
-| Reset release to first block write | 55 | 550 ns |
+| SHA block latency, empty string | 131 | 1.31 us |
+| SHA block latency, `abc` | 131 | 1.31 us |
+| Reset release to first block write | 57 | 570 ns |
 | First block write through start command | 288 | 2.88 us |
 | Start command to accelerator busy | 1 | 10 ns |
-| Accelerator busy through done | 67 | 670 ns |
-| Accelerator done through final digest store | 243 | 2.43 us |
-| First block write through final digest store | 599 | 5.99 us |
-| Reset release through final digest store | 654 | 6.54 us |
+| Accelerator busy through done | 131 | 1.31 us |
+| Accelerator done through final digest store | 257 | 2.57 us |
+| First block write through final digest store | 677 | 6.77 us |
+| Reset release through final digest store | 734 | 7.34 us |
 
-The raw accelerator accounts for 67 of the 654 end-to-end cycles. This baseline
+The raw accelerator accounts for 131 of the 734 end-to-end cycles. This baseline
 does not yet include multi-block hashing, synthesis resource usage, or
 post-implementation timing.
 
 ## Software Baseline
 
-Measured with Vivado 2025.2 behavioral simulation on August 10, 2026. The
+Measured with Vivado 2026.1 behavioral simulation on October 20, 2026. The
 firmware uses the string-free C++ SHA-256 implementation, which you can read
 more about in [the firmware directory](../firmware/hash-library/).
 
 | Measurement | Cycles | Time at 100 MHz |
 |---|---:|---:|
-| Reset release to software start marker | 61 | 610 ns |
+| Reset release to software start marker | 63 | 630 ns |
 | Software SHA setup through digest store | 30,108 | 301.08 us |
-| Reset release through completion marker | 30,169 | 301.69 us |
+| Reset release through completion marker | 30,171 | 301.71 us |
 
 The empty-string digest was checked in RAM before the test passed.
 
@@ -50,8 +50,8 @@ end-to-end speedup = software.total_cycles / soc.total_cycles
 For the current measurements:
 
 ```text
-end-to-end speedup = 30,169 / 654 = 46.13x
-end-to-end cycle reduction = 1 - (654 / 30,169) = 97.83%
+end-to-end speedup = 30,171 / 734 = 41.10x
+end-to-end cycle reduction = 1 - (734 / 30,171) = 97.57%
 ```
 
 Both testbenches use the same PicoRV32, AXI RAM, clock, reset sequence, digest,
@@ -69,8 +69,8 @@ operation speedup = software.hash_and_store_cycles / soc.operation_cycles
 For the current measurements:
 
 ```text
-operation speedup = 30,108 / 599 = 50.26x
-operation cycle reduction = 1 - (599 / 30,108) = 98.01%
+operation speedup = 30,108 / 677 = 44.47x
+operation cycle reduction = 1 - (677 / 30,108) = 97.75%
 ```
 
 This operation comparison is not perfectly equivalent: the
@@ -79,12 +79,12 @@ the software library accepts the empty byte string and performs padding itself.
 
 ## Findings
 
-What we (royal we) found is that for this specific PicoRV32 core, specifically the AXI variant, can run SHA-256 operations about 46 times faster
+What we (royal we) found is that for this specific PicoRV32 core, specifically the AXI variant, can run SHA-256 operations about 41 times faster
 when the algorithm is baked into the hardware. In other words, for this core, and only this core, we made SHA-256 faster.
 
 This does NOT mean:
 - You can run SHA-256 faster than current modern CPUs. Much smarter people than me have worked on optimizing that as much as possible. What I did was optimize it specifically on the PicoRV32 software CPU.
-- A hypothetical fabbed version of this design would achieve a 46x speedup. While it would still be faster, there's plenty of factors to consider that may make it slower than simulation.
+- A hypothetical fabbed version of this design would achieve a 41x speedup. While it would still be faster, there's plenty of factors to consider that may make it slower than simulation.
 - This is the best result we can get. We could still experiment with parallel processing, multiple cores, pipelining, or many other things.
 - The design will run at 100MHz. It's unlikely to, and I haven't run any timing analysis yet.
 

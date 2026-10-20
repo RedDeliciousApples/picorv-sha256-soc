@@ -34,20 +34,20 @@ In self-checking Vivado RTL simulation, hashing an empty message took:
 
 | PicoRV32 path | End-to-end cycles | Time at 100 MHz |
 |---|---:|---:|
-| RV32I software SHA-256 | 30,169 | 301.69 us |
-| AXI-Lite SHA-256 accelerator | 732 | 7.32 us |
+| RV32I software SHA-256 | 30,171 | 301.71 us |
+| AXI-Lite SHA-256 accelerator | 734 | 7.34 us |
 
-That's a **41.21x speedup**, or **97.57% fewer cycles**, for the
+That's a **41.10x speedup**, or **97.57% fewer cycles**, for the
 SHA256 accelerator on this PicoRV32 SoC.
 
 This is a comparison of cycle count in simulation. It does NOT mean
 Vivado simulation can compute SHA hashes faster than a desktop CPU,
-and it is not a physical-board benchmark. A  Vivado 2025.2
-implementation meets 100 MHz with +0.522 ns setup
-WNS and +0.020 ns hold WHS. Also, the accelerator gets an already padded
+and it is not a physical-board benchmark. A  Vivado 2026.1
+implementation meets 100 MHz with +0.653 ns setup
+WNS and +0.028 ns hold WHS. Also, the accelerator gets an already padded
 block, but the software library does its own padding. See [methodology and
 results](docs/PERFORMANCE.md) and the [post-route
-reports](results/fpga/2026-09-21-vivado-2025.2-100mhz/).
+reports](results/fpga/2026-10-20-vivado-2026.1-100mhz/).
 
 ## Current Status
 Works with a 512-bit block, all tests pass. 
