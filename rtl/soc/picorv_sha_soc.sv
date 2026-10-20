@@ -26,6 +26,20 @@ module picorv_sha_soc #(
     output logic trap
 );
 
+    //Asynchronous reset assertion, synchronous reset deassertion
+    //Coutesy of https://fpgacpu.ca/fpga/Reset_Synchronizer.html
+    (* ASYNC_REG = "TRUE" *) logic [1:0] reset_sync_ff;
+    logic reset_n_internal;
+
+    always_ff @(posedge clk or negedge reset_n) begin
+        if (!reset_n)
+            reset_sync_ff <= 2'b00;
+        else
+            reset_sync_ff <= {reset_sync_ff[0], 1'b1};
+    end
+
+    assign reset_n_internal = reset_sync_ff[1];
+
     // ============================================================
     // PicoRV32 AXI main wires
     // ============================================================
@@ -133,7 +147,7 @@ module picorv_sha_soc #(
         .ENABLE_TRACE   (0)
     ) cpu (
         .clk    (clk),
-        .resetn (reset_n),
+        .resetn (reset_n_internal),
         .trap   (trap),
 
         .mem_axi_awvalid (cpu_awvalid),
@@ -186,7 +200,7 @@ module picorv_sha_soc #(
 
     axi_lite_2peripheral_decoder decoder (
         .clk     (clk),
-        .reset_n (reset_n),
+        .reset_n (reset_n_internal),
 
         // Main side from CPU
         .m_awaddr  (cpu_awaddr),
@@ -267,7 +281,7 @@ module picorv_sha_soc #(
         .MEM_FILE  (MEM_FILE)
     ) ram (
         .s_axi_aclk     (clk),
-        .s_axi_aresetn  (reset_n),
+        .s_axi_aresetn  (reset_n_internal),
 
         .s_axi_awaddr   (ram_awaddr),
         .s_axi_awprot   (ram_awprot),
@@ -298,7 +312,7 @@ module picorv_sha_soc #(
 
     sha256_axi_lite sha (
         .s_axi_aclk     (clk),
-        .s_axi_aresetn  (reset_n),
+        .s_axi_aresetn  (reset_n_internal),
 
         .s_axi_awaddr   (sha_awaddr),
         .s_axi_awprot   (sha_awprot),
