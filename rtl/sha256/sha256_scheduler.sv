@@ -63,20 +63,6 @@ module sha256_scheduler (
             sig1 = rotr(x, 17) ^ rotr(x, 19) ^ (x >> 10);
         end
     endfunction
-    //because we can't slice math like this:
-    //(round - 6'd2)  [3:0]
-    //which would've made things look nicer...
-    //we had to add these variables
-    logic [3:0] idx_m2;
-    logic [3:0] idx_m7;
-    logic [3:0] idx_m15;
-    logic [3:0] idx_m16;
-    
-    assign idx_m2  = round[3:0] - 4'd2;
-    assign idx_m7  = round[3:0] - 4'd7;
-    assign idx_m15 = round[3:0] - 4'd15;
-    assign idx_m16 = round[3:0] - 4'd0;
-    
     //trying to improve timing by balacing addition trees, so we split the sum into two parts
     
     logic [31:0] w_sum_left;
