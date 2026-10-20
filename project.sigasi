@@ -1,0 +1,10 @@
+{
+    "name": "picorv-sha256-soc",
+    "targets": {
+        "rtl": {
+            "libraryMapping": {
+                "": "work"
+            }
+        }
+    }
+}
