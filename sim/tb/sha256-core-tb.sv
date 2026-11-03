@@ -92,7 +92,7 @@ module sha256_core_tb();
 
         wait_cycles = 0;
 
-        while ((digest_valid !== 1'b1) && (wait_cycles < 100)) begin
+        while ((digest_valid !== 1'b1) && (wait_cycles < 300)) begin
             @(posedge clk);
             wait_cycles = wait_cycles + 1;
         end
@@ -141,13 +141,16 @@ module sha256_core_tb();
         32'h90befffa, 32'ha4506ceb, 32'hbef9a3f7, 32'hc67178f2
     };
     
+    logic round_en = 1'b0;
+
     sha256_core dut (
         .clk(clk),
         .reset_n(reset_n),
         .start_pulse(start_pulse),
-        .round_en(1'b1),
+        .round_en(round_en),
         .w_i(w_i),
         .k_i(k_i),
+        .continue_chain(1'b0),
         .digest_valid(digest_valid),
         .h0_out(h0_out),
         .h1_out(h1_out),
@@ -179,9 +182,14 @@ module sha256_core_tb();
         for (j = 0; j < 64; j = j + 1) begin
             w_i = test_W[j];
             k_i = test_K[j];
+            round_en = 1'b0;
+            @(posedge clk);
+            @(negedge clk);
+            round_en = 1'b1;
             @(posedge clk);
             @(negedge clk);
         end
+        round_en = 1'b0;
         
         wait(digest_valid === 1'b1);
         #1;
