@@ -59,7 +59,7 @@ module sha256_core(
     state_t current_state;
     logic [5:0] round_count; // 6 bits = 64 vals
 
-    logic [31:0] a_rot2, e_rot6, e_rot11, a_rot13, a_rot22, e_rot25, S1, ch, temp1, S0, maj, temp2;
+    logic [31:0] a_rot2, e_rot6, e_rot11, a_rot13, a_rot22, e_rot25, S1, ch, S0, maj, temp2;
 
     assign a_rot2 = {a[1:0], a[31:2]};
     assign e_rot6 = {e[5:0], e[31:6]};
@@ -72,21 +72,27 @@ module sha256_core(
 
     assign ch = (e & f) ^ ((~e) & g);
 
-    // trying to balance addition trees to improve timing, so we split the sum into two parts
-    logic [31:0] temp1_left;
-    logic [31:0] temp1_right;
-    logic [31:0] temp1_partial;
+    logic [31:0] pre_a;
+    logic [31:0] pre_e;
+    logic [31:0] kw;
 
-    assign temp1_left    = h + S1;
-    assign temp1_right   = ch + k_i;
-    assign temp1_partial = temp1_left + temp1_right;
-    assign temp1         = temp1_partial + w_i;
+    assign kw = k_i + w_i;
 
     assign S0 = (a_rot2) ^ (a_rot13) ^ (a_rot22);
 
     assign maj = (a & b) ^ (a & c) ^ (b & c);
 
     assign temp2 = S0 + maj;
+
+    always_ff @(posedge clk or negedge reset_n) begin
+        if (!reset_n) begin
+            pre_a <= 32'd0;
+            pre_e <= 32'd0;
+        end else begin
+            pre_a <= h + S1 + ch + temp2;
+            pre_e <= d + h + S1 + ch;
+        end
+    end
 
     assign h0_out = h0;
     assign h1_out = h1;
@@ -137,11 +143,11 @@ module sha256_core(
                 RUN: begin
 
                     if (round_en) begin
-                        a <= temp1 + temp2;
+                        a <= pre_a + kw;
                         b <= a;
                         c <= b;
                         d <= c;
-                        e <= d + temp1;
+                        e <= pre_e + kw;
                         f <= e;
                         g <= f;
                         h <= g;
