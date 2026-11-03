@@ -17,6 +17,7 @@ set regression_tests [list \
     sha256_block_top_b2b_tb \
     basic_comms_test \
     axi_tb \
+    sha256_vectors_tb \
     picorv_sha_soc_tb \
     picorv_software_sha_tb \
 ]

@@ -12,8 +12,9 @@ Tests that were written as the project progressed, to check that the SoC works c
 | `picorv_sha_soc_tb.sv` | Runs firmware, checks empty string result written to RAM | - |Self-checking |
 | `picorv_software_sha_tb.sv` | PicoRV32 SoC running software SHA-256 firmware | Empty-string digest and cycle count | Self-checking |
 | `basic_comms_test.sv` | SHA register interface | Block-register writes and readback | Self-checking |
+| `sha256_vectors_tb.sv` | SHA-256 peripheral (`sha256_axi_lite`) | 10 single-block vectors from `sim/mem/sha256_vectors.mem` through the AXI-Lite registers | Self-checking |
 
-All seven testbenches are self-checking.
+All eight testbenches are self-checking.
 
 # Performance measurements
 
