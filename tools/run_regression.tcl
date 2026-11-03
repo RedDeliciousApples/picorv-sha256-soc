@@ -39,6 +39,21 @@ proc run_test {simulation_top} {
     run all
     puts "run all returned for $simulation_top"
 
+    # A testbench that calls $fatal still lets `run all` return normally, so
+    # check the simulation log or a failing test would be reported as passing.
+    set sim_log [file join [get_property DIRECTORY [current_project]] \
+        [get_property NAME [current_project]].sim sim_1 behav xsim simulate.log]
+    if {![file exists $sim_log]} {
+        error "Simulation log not found: $sim_log"
+    }
+    set log_channel [open $sim_log r]
+    set log_text [read $log_channel]
+    close $log_channel
+    if {[regexp {Fatal:} $log_text]} {
+        close_sim
+        error "$simulation_top reported a fatal error (see $sim_log)"
+    }
+
     puts "Calling close_sim for $simulation_top"
     close_sim
     puts "close_sim returned for $simulation_top"
