@@ -22,6 +22,7 @@ module sha256_block_top (
     input  logic        reset_n,
     input  logic        start,
     input  logic [511:0] block,
+    input logic continue_chain,
 
     output logic        busy,
     output logic        done,
@@ -42,6 +43,7 @@ state_t current_state;
 
 //register to save the 512-bit block, in case something happens
 logic [511:0] block_reg;
+logic chain_reg;
 
 logic [5:0] round_count;
  // Scheduler control/wires
@@ -191,6 +193,7 @@ logic [5:0] round_count;
         .round_en     (core_round_en),
         .w_i          (sched_w_reg),
         .k_i          (k_word_reg),
+        .continue_chain (chain_reg),
 
         .digest_valid (core_digest_valid),
         .h0_out       (h0_out),
@@ -210,6 +213,7 @@ always_ff @(posedge clk or negedge reset_n) begin
         block_reg     <= 512'd0;
         sched_w_reg   <= 32'd0;
         k_word_reg    <= 32'd0;
+        chain_reg <= 1'b0;
     end else begin
         case (current_state)
 
@@ -218,6 +222,7 @@ always_ff @(posedge clk or negedge reset_n) begin
 
                 if (start) begin
                     block_reg     <= block;
+                    chain_reg <= continue_chain;
                     current_state <= LOAD;
                 end
             end
@@ -252,6 +257,7 @@ always_ff @(posedge clk or negedge reset_n) begin
 
             DONE: begin
                 if (start) begin
+                    chain_reg     <= continue_chain;
                     block_reg     <= block;
                     round_count   <= 6'd0;
                     current_state <= LOAD;

@@ -51,7 +51,8 @@ module sha256_block_top_b2b_tb;
         .block   (block),
         .busy    (busy),
         .done    (done),
-        .digest  (digest)
+        .digest  (digest),
+        .continue_chain (1'b0)
     );
 
     initial clk = 1'b0;

@@ -44,6 +44,7 @@ logic busy;
 logic done;
 logic ready;
 logic [255:0] digest;
+logic continue_chain;
 
 assign block_packed = {
     block_words[0],
@@ -70,7 +71,7 @@ sha256_block_top sha_inst (
     .reset_n (reset_n),
     .start   (start_pulse),
     .block   (block_packed),
-
+    .continue_chain (continue_chain),
     .busy    (busy),
     .done    (done),
     .ready   (ready),
@@ -80,6 +81,7 @@ sha256_block_top sha_inst (
 always_ff @(posedge clk or negedge reset_n) begin
     if (!reset_n) begin
         start_pulse <= 1'b0;
+        continue_chain <= 1'b0;
 
         for (int i = 0; i < 16; i++) begin
             block_words[i] <= 32'd0;
@@ -93,6 +95,7 @@ always_ff @(posedge clk or negedge reset_n) begin
                 8'h00: begin
                     if (wr_strb[0] && wr_data[0] && ready) begin
                         start_pulse <= 1'b1;
+                        continue_chain <= wr_data[1];
                     end
                 end
                 //there's probably a better way to do this
