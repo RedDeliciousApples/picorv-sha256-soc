@@ -30,23 +30,23 @@ module sha256_block_top (
     output logic [255:0] digest
 );
 
-typedef enum logic [2:0] {
-    IDLE,
-    LOAD,
-    PREPARE,
-    EXECUTE,
-    WAIT_DONE,
-    DONE
-} state_t;
+    typedef enum logic [2:0] {
+        IDLE,
+        LOAD,
+        PREPARE,
+        EXECUTE,
+        WAIT_DONE,
+        DONE
+    } state_t;
 
-state_t current_state;
+    state_t current_state;
 
-//register to save the 512-bit block, in case something happens
-logic [511:0] block_reg;
-logic chain_reg;
+    //register to save the 512-bit block, in case something happens
+    logic [511:0] block_reg;
+    logic chain_reg;
 
-logic [5:0] round_count;
- // Scheduler control/wires
+    logic [5:0] round_count;
+    // Scheduler control/wires
     logic        sched_load;
     logic        sched_next;
     logic [31:0] sched_w;
@@ -75,17 +75,17 @@ logic [5:0] round_count;
 
 
     assign digest = {
-        h0_out, h1_out, h2_out, h3_out,
-        h4_out, h5_out, h6_out, h7_out
+    h0_out, h1_out, h2_out, h3_out,
+    h4_out, h5_out, h6_out, h7_out
     };
 
     assign busy = (current_state == LOAD) ||
-                  (current_state == PREPARE) ||
-                  (current_state == EXECUTE) ||
-                  (current_state == WAIT_DONE);
+    (current_state == PREPARE) ||
+    (current_state == EXECUTE) ||
+    (current_state == WAIT_DONE);
 
     assign done = (current_state == DONE);
-    
+
     assign ready = (current_state == IDLE) || (current_state == DONE);
 
 
@@ -205,71 +205,71 @@ logic [5:0] round_count;
         .h6_out       (h6_out),
         .h7_out       (h7_out)
     );
-//STATE MACHINE
-always_ff @(posedge clk or negedge reset_n) begin
-    if (!reset_n) begin
-        current_state <= IDLE;
-        round_count   <= 6'd0;
-        block_reg     <= 512'd0;
-        sched_w_reg   <= 32'd0;
-        k_word_reg    <= 32'd0;
-        chain_reg <= 1'b0;
-    end else begin
-        case (current_state)
+    //STATE MACHINE
+    always_ff @(posedge clk or negedge reset_n) begin
+        if (!reset_n) begin
+            current_state <= IDLE;
+            round_count   <= 6'd0;
+            block_reg     <= 512'd0;
+            sched_w_reg   <= 32'd0;
+            k_word_reg    <= 32'd0;
+            chain_reg     <= 1'b0;
+        end else begin
+            case (current_state)
 
-            IDLE: begin
-                round_count <= 6'd0;
+                IDLE: begin
+                    round_count <= 6'd0;
 
-                if (start) begin
-                    block_reg     <= block;
-                    chain_reg <= continue_chain;
-                    current_state <= LOAD;
+                    if (start) begin
+                        block_reg     <= block;
+                        chain_reg <= continue_chain;
+                        current_state <= LOAD;
+                    end
                 end
-            end
 
-            LOAD: begin
-                round_count   <= 6'd0;
-                current_state <= PREPARE;
-            end
-
-            PREPARE: begin
-                //register the scheduler and k rom to use in the EXECUTE cycle
-                sched_w_reg   <= sched_w;
-                k_word_reg    <= k_word;
-                current_state <= EXECUTE;
-            end
-
-            EXECUTE: begin
-                if (round_count == 6'd63) begin
-                    current_state <= WAIT_DONE;
-                end else begin
-                    round_count <= round_count + 6'd1;
+                LOAD: begin
+                    round_count   <= 6'd0;
                     current_state <= PREPARE;
                 end
-            end
 
-            WAIT_DONE: begin
-                // wait for compression core to finish writeback/addback
-                if (core_digest_valid) begin
-                    current_state <= DONE;
+                PREPARE: begin
+                    //register the scheduler and k rom to use in the EXECUTE cycle
+                    sched_w_reg   <= sched_w;
+                    k_word_reg    <= k_word;
+                    current_state <= EXECUTE;
                 end
-            end
 
-            DONE: begin
-                if (start) begin
-                    chain_reg     <= continue_chain;
-                    block_reg     <= block;
+                EXECUTE: begin
+                    if (round_count == 6'd63) begin
+                        current_state <= WAIT_DONE;
+                    end else begin
+                        round_count <= round_count + 6'd1;
+                        current_state <= PREPARE;
+                    end
+                end
+
+                WAIT_DONE: begin
+                    // wait for compression core to finish writeback/addback
+                    if (core_digest_valid) begin
+                        current_state <= DONE;
+                    end
+                end
+
+                DONE: begin
+                    if (start) begin
+                        chain_reg     <= continue_chain;
+                        block_reg     <= block;
+                        round_count   <= 6'd0;
+                        current_state <= LOAD;
+                    end
+                end
+
+                default: begin
+                    current_state <= IDLE;
                     round_count   <= 6'd0;
-                    current_state <= LOAD;
                 end
-            end
 
-            default: begin
-                current_state <= IDLE;
-                round_count   <= 6'd0;
-            end
-
-        endcase
+            endcase
+        end
     end
-end
 endmodule

@@ -124,12 +124,12 @@ module sha256_core(
                 IDLE: begin
                     if (start_pulse) begin
                         if (!continue_chain) begin
-                        //fully reinit all registers
-                        h0 <= H0_INIT; h1 <= H1_INIT; h2 <= H2_INIT; h3 <= H3_INIT;
-                        h4 <= H4_INIT; h5 <= H5_INIT; h6 <= H6_INIT; h7 <= H7_INIT;
+                            //fully reinit all registers
+                            h0 <= H0_INIT; h1 <= H1_INIT; h2 <= H2_INIT; h3 <= H3_INIT;
+                            h4 <= H4_INIT; h5 <= H5_INIT; h6 <= H6_INIT; h7 <= H7_INIT;
 
-                        a <= H0_INIT; b <= H1_INIT; c <= H2_INIT; d <= H3_INIT;
-                        e <= H4_INIT; f <= H5_INIT; g <= H6_INIT; h <= H7_INIT;
+                            a <= H0_INIT; b <= H1_INIT; c <= H2_INIT; d <= H3_INIT;
+                            e <= H4_INIT; f <= H5_INIT; g <= H6_INIT; h <= H7_INIT;
                         end else begin
                             //load the cumulative hash into the working registers
                             a <= h0; b <= h1; c <= h2; d <= h3;

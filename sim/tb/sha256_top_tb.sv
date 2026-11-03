@@ -36,13 +36,13 @@ module sha256_block_top_b2b_tb;
     integer measured_latency_cycles;
 
     localparam [255:0] SHA256_EMPTY_EXPECTED =
-        256'he3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855;
+    256'he3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855;
 
     localparam [255:0] SHA256_ABC_EXPECTED =
-        256'hba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad;
+    256'hba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad;
 
     localparam [255:0] SHA256_55_A_EXPECTED =
-        256'h9f4390f8d30c2dd92ec9f095b65e2b9ae9b0a925a5258e241c9f1e910f734318;
+    256'h9f4390f8d30c2dd92ec9f095b65e2b9ae9b0a925a5258e241c9f1e910f734318;
 
     sha256_block_top dut (
         .clk     (clk),
@@ -99,7 +99,7 @@ module sha256_block_top_b2b_tb;
             $display("Expected: %064h", expected);
             $display("Got:      %064h", digest);
             $display("MEASURE sha_block.latency_cycles test=\"%0s\" value=%0d",
-                     test_name, measured_latency_cycles);
+                test_name, measured_latency_cycles);
 
             if (digest !== expected) begin
                 $fatal(1, "FAIL: %0s digest mismatch", test_name);
@@ -139,8 +139,8 @@ module sha256_block_top_b2b_tb;
         block = 512'd0;
         block[511:480] = 32'h61626380;
         block[31:0]    = 32'd24;
-                $display("Second block W0  should be 61626380, actual block[511:480]=%08h", block[511:480]);
-$display("Second block W15 should be 00000018, actual block[31:0]=%08h", block[31:0]);
+        $display("Second block W0  should be 61626380, actual block[511:480]=%08h", block[511:480]);
+        $display("Second block W15 should be 00000018, actual block[31:0]=%08h", block[31:0]);
         pulse_start();
         wait_for_done();
 
@@ -151,10 +151,10 @@ $display("Second block W15 should be 00000018, actual block[31:0]=%08h", block[3
         // ------------------------------------------------------------
 
         block = {
-            {13{32'h61616161}},
-            32'h61616180,
-            32'h00000000,
-            32'h000001b8
+        {13{32'h61616161}},
+        32'h61616180,
+        32'h00000000,
+        32'h000001b8
         };
 
         pulse_start();
