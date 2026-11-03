@@ -1,41 +1,75 @@
-"""Generate sim/mem/sha256_vectors.mem for sim/tb/sha256_vectors_tb.sv
+"""Generate sim/mem/sha256_vectors.mem, the SHA-256 test vectors used by
+sim/tb/sha256_vectors_tb.sv.
 
-Usage:
+Usage (from the repository root):
     python tools/gen_sha_vectors.py
+
+Digests are computed with hashlib. A few are also checked against well-known
+published values, so a bug in this script cannot silently produce wrong vectors.
+
+Messages are padded here, as software would, and split into 64-byte blocks.
+Each block becomes one entry in the file.
+
+File format ($readmemh, one 32-bit word per line):
+    word 0                   number of entries (blocks)
+    per entry, 26 words:     CTRL value to write (1 = new message,
+                             3 = start + continue from the previous digest),
+                             check flag (1 on a message's last block),
+                             16 padded block words (BLOCK0..BLOCK15),
+                             8 expected digest words (DIGEST0..DIGEST7; zero
+                             when the check flag is 0)
+Words are big-endian, matching the register map.
 """
 import hashlib
 from pathlib import Path
 
+CTRL_NEW = 1
+CTRL_CONTINUE = 3
+
+# (name, message, optional CTRL override for the first block)
 VECTORS = [
-    ("empty string",              b""),
-    ("abc (FIPS 180-4 example)",  b"abc"),
-    ("CAVS 8-bit message d3",     bytes([0xD3])),
-    ("abcd (one full word)",      b"abcd"),
-    ("quick brown fox",           b"The quick brown fox jumps over the lazy dog"),
-    ("54 x 'a'",                  b"a" * 54),
-    ("55 x 'a' (longest 1-block)", b"a" * 55),
-    ("55 x 0xff",                 b"\xff" * 55),
-    ("55 incrementing bytes",     bytes(range(55))),
-    ("single zero byte",          b"\x00"),
+    # right after reset the cumulative hash is H_INIT, so continuing is legal
+    ("empty string, continue bit set right after reset", b"", CTRL_CONTINUE),
+    ("empty string",               b"", None),
+    ("abc (FIPS 180-4 example)",   b"abc", None),
+    ("CAVS 8-bit message d3",      bytes([0xD3]), None),
+    ("abcd (one full word)",       b"abcd", None),
+    ("quick brown fox",            b"The quick brown fox jumps over the lazy dog", None),
+    ("54 x 'a'",                   b"a" * 54, None),
+    ("55 x 'a' (longest 1-block)", b"a" * 55, None),
+    ("55 x 0xff",                  b"\xff" * 55, None),
+    ("55 incrementing bytes",      bytes(range(55)), None),
+    ("single zero byte",           b"\x00", None),
+    ("NIST 56-byte message (2 blocks)",
+     b"abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq", None),
+    ("single block again, after a multi-block message", b"abc", None),
+    ("64 x 'a' (2 blocks, padding in its own block)", b"a" * 64, None),
+    ("65 bytes (2 blocks)",        bytes(range(65)), None),
+    ("119 bytes (2 blocks, longest)", bytes(range(119)), None),
+    ("120 bytes (3 blocks)",       bytes(range(120)), None),
+    ("200 bytes (4 blocks)",       bytes(i * 7 % 256 for i in range(200)), None),
+    ("empty string, after a multi-block message", b"", None),
 ]
 
-
+# Published digests, to cross-check hashlib and this script.
 KNOWN = {
     b"": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     b"abc": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
     bytes([0xD3]): "28969cdfa74a12c82f3bad960b0b000aca2ac329deea5c2328ebc6f2ba9802c1",
     b"The quick brown fox jumps over the lazy dog":
         "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592",
+    b"abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq":
+        "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1",
 }
 
 
-def pad_block(msg: bytes) -> bytes:
-    assert len(msg) <= 55, "message does not fit in a single block"
-    block = msg + b"\x80"
-    block += b"\x00" * (56 - len(block))
-    block += (len(msg) * 8).to_bytes(8, "big")
-    assert len(block) == 64
-    return block
+def pad_message(msg: bytes) -> bytes:
+    """SHA-256 padding: a 1 bit, zeros, then the 64-bit message length in bits."""
+    padded = msg + b"\x80"
+    padded += b"\x00" * ((56 - len(padded)) % 64)
+    padded += (len(msg) * 8).to_bytes(8, "big")
+    assert len(padded) % 64 == 0
+    return padded
 
 
 def words(data: bytes):
@@ -46,21 +80,34 @@ def main():
     for msg, expected in KNOWN.items():
         assert hashlib.sha256(msg).hexdigest() == expected, msg
 
+    entries = []
+    for index, (name, msg, first_ctrl) in enumerate(VECTORS):
+        digest = words(hashlib.sha256(msg).digest())
+        padded = pad_message(msg)
+        blocks = [padded[i:i + 64] for i in range(0, len(padded), 64)]
+        for n, block in enumerate(blocks):
+            last = n == len(blocks) - 1
+            ctrl = CTRL_NEW if n == 0 else CTRL_CONTINUE
+            if n == 0 and first_ctrl is not None:
+                ctrl = first_ctrl
+            entries.append((
+                f"// message {index}: {name} ({len(msg)} bytes), block {n + 1} of {len(blocks)}",
+                [ctrl, int(last)] + words(block) + (digest if last else [0] * 8),
+            ))
+
     lines = [
-        "// Generated by tools/gen_sha_vectors.py. Do not edit.",
-        "// Version: 0.01",
-        "// word 0: vector count; then, for each vector, 16 block words and 8 digest words.",
-        f"{len(VECTORS):08x}",
+        "// Generated by tools/gen_sha_vectors.py. Do not edit by hand.",
+        "// word 0: entry count; then per entry CTRL, check flag, 16 block words, 8 digest words.",
+        f"{len(entries):08x}",
     ]
-    for index, (name, msg) in enumerate(VECTORS):
-        digest = hashlib.sha256(msg).digest()
-        lines.append(f"// vector {index}: {name} ({len(msg)} bytes)")
-        lines += [f"{w:08x}" for w in words(pad_block(msg)) + words(digest)]
+    for comment, entry_words in entries:
+        lines.append(comment)
+        lines += [f"{w:08x}" for w in entry_words]
 
     out = Path(__file__).resolve().parent.parent / "sim" / "mem" / "sha256_vectors.mem"
     with open(out, "w", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
-    print(f"Wrote {len(VECTORS)} vectors to {out}")
+    print(f"Wrote {len(entries)} entries ({len(VECTORS)} messages) to {out}")
 
 
 if __name__ == "__main__":

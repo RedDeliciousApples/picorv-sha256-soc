@@ -13,7 +13,8 @@
 
 module sha256_vectors_tb;
 
-    localparam int WORDS_PER_VECTOR = 24; // 16 block words + 8 digest words
+    // one entry per 512-bit block: ctrl, check flag, 16 block words, 8 digest words
+    localparam int WORDS_PER_VECTOR = 26;
     localparam int MAX_VECTORS      = 64;
     localparam int POLL_LIMIT       = 500;
 
@@ -143,6 +144,8 @@ module sha256_vectors_tb;
 
     int          vector_count;
     int          base;
+    logic [31:0] ctrl;
+    logic        check;
     int          polls;
     logic [31:0] status;
     logic [31:0] got;
@@ -175,7 +178,7 @@ module sha256_vectors_tb;
 
         vector_count = vector_mem[0];
         if (vector_count < 1 || vector_count > MAX_VECTORS) begin
-            $fatal(1, "FAIL: bad vector count %0d (is sha256_vectors.mem loaded?)", vector_count);
+            $fatal(1, "FAIL: bad entry count %0d (is sha256_vectors.mem loaded?)", vector_count);
         end
 
         aresetn = 1'b0;
@@ -186,44 +189,49 @@ module sha256_vectors_tb;
         repeat (4) @(posedge clk);
 
         for (int v = 0; v < vector_count; v++) begin
-            base = 1 + v * WORDS_PER_VECTOR;
+            base  = 1 + v * WORDS_PER_VECTOR;
+            ctrl  = vector_mem[base];
+            check = vector_mem[base + 1][0];
 
             axi_read(REG_STATUS, status);
             if (!status[0]) begin
-                $fatal(1, "FAIL: vector %0d: core not ready before start (status=%08h)", v, status);
+                $fatal(1, "FAIL: entry %0d: core not ready before start (status=%08h)", v, status);
             end
 
             for (int w = 0; w < 16; w++) begin
-                axi_write(REG_BLOCK0 + 8'(w * 4), vector_mem[base + w]);
+                axi_write(REG_BLOCK0 + 8'(w * 4), vector_mem[base + 2 + w]);
             end
-            axi_write(REG_CTRL, 32'h1);
+            axi_write(REG_CTRL, ctrl);
 
             polls = 0;
             do begin
                 axi_read(REG_STATUS, status);
                 polls++;
                 if (polls > POLL_LIMIT) begin
-                    $fatal(1, "FAIL: vector %0d: done was never set (status=%08h)", v, status);
+                    $fatal(1, "FAIL: entry %0d: done was never set (status=%08h)", v, status);
                 end
             end while (!status[2]);
 
-            for (int d = 0; d < 8; d++) begin
-                axi_read(REG_DIGEST0 + 8'(d * 4), got);
-                expected = vector_mem[base + 16 + d];
-                if (got !== expected) begin
-                    $display("FAIL: vector %0d DIGEST%0d: expected %08h, got %08h", v, d, expected, got);
-                    errors++;
+            // only a message's last block has a final digest to compare
+            if (check) begin
+                for (int d = 0; d < 8; d++) begin
+                    axi_read(REG_DIGEST0 + 8'(d * 4), got);
+                    expected = vector_mem[base + 2 + 16 + d];
+                    if (got !== expected) begin
+                        $display("FAIL: entry %0d DIGEST%0d: expected %08h, got %08h", v, d, expected, got);
+                        errors++;
+                    end
                 end
             end
 
             if (errors == 0) begin
-                $display("PASS: vector %0d (%0d status polls)", v, polls);
+                $display("PASS: entry %0d (%0d status polls)", v, polls);
             end else begin
-                $fatal(1, "FAIL: vector %0d digest mismatch", v);
+                $fatal(1, "FAIL: entry %0d digest mismatch", v);
             end
         end
 
-        $display("PASS: all %0d SHA-256 vectors matched", vector_count);
+        $display("PASS: all %0d entries (blocks) processed, every final digest matched", vector_count);
         $finish;
     end
 
