@@ -8,26 +8,24 @@ Tests that were written as the project progressed, to check that the SoC works c
 | `sha256_scheduler_tb.sv` | SHA scheduler | Checks all 64 words of the empty-string schedule | Self-checking |
 | `sha256_top_tb.sv` | SHA block top | Empty string, `"abc"`, and the 55-byte one-block boundary | Self-checking |
 | `axi_tb.sv` | AXI decoder and RAM | Routing, WSTRB, write ordering, DECERR on unmapped addresses | Self-checking |
-| `sha256-core-tb.sv` | SHA compression core | Empty-string digest and completion timeout | Self-checking |
+| `sha256-core-tb.sv` | SHA compression core | Empty-string digest, timeout, one cycle wait between rounds | Self-checking |
 | `picorv_sha_soc_tb.sv` | Runs firmware, checks empty string result written to RAM | - |Self-checking |
 | `picorv_software_sha_tb.sv` | PicoRV32 SoC running software SHA-256 firmware | Empty-string digest and cycle count | Self-checking |
 | `basic_comms_test.sv` | SHA register interface | Block-register writes and readback | Self-checking |
-| `sha256_vectors_tb.sv` | SHA-256 peripheral (`sha256_axi_lite`) | 10 single-block vectors from `sim/mem/sha256_vectors.mem` through the AXI-Lite registers | Self-checking |
+| `sha256_vectors_tb.sv` | SHA-256 peripheral (`sha256_axi_lite`) | 19 messages from `sim/mem/sha256_vectors.mem` through the AXI-Lite registers | Self-checking |
 
 All eight testbenches are self-checking.
 
 # Performance measurements
 
 `sha256_block_top_b2b_tb`, `picorv_sha_soc_tb`, and `picorv_software_sha_tb`
-emit cycle counts using lines that begin with `MEASURE`. Run all three from the
-repository root with:
+output lines that begin with `MEASURE`. You can run them like this:
 
 ```text
 vivado -mode batch -source tools/run_measurements.tcl -tclargs path/to/picorv.xpr
 ```
 
-See [PERFORMANCE.md](PERFORMANCE.md) for the current baseline and measurement
-details.
+See [PERFORMANCE.md](PERFORMANCE.md) for more info.
 
 # Vivado project setup
 

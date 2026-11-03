@@ -1,7 +1,7 @@
 # PicoRV32 SHA-256 SoC
 
 ## Overview
-This is a PicoRV32-based RV32I SoC with a memory-mapped SHA-256 peripheral, using the AXI-4 Lite interface, mainly made to help me learn AXI. It can process one 512-bit padded message block per operation.
+This is a PicoRV32-based RV32I SoC with a memory-mapped SHA-256 peripheral, using the AXI-4 Lite interface, mainly made to help me learn AXI. It can process messages of any length, within reason.
 
 
 
@@ -50,7 +50,7 @@ results](docs/PERFORMANCE.md) and the [post-route
 reports](results/fpga/2026-10-20-vivado-2026.1-100mhz/).
 
 ## Current Status
-Works with a 512-bit block, all tests pass. 
+Works with multiple chained 512-bit blocks, all tests pass. 
 
 ## Top diagram
 ![Level 1 diagram](docs/images/level1diagram.png)
@@ -72,9 +72,11 @@ See the [memory map documentation](docs/memory_map.md) for more details.
 
 ## SHA Peripheral Programming Model
 1. Write `BLOCK0` through `BLOCK15`.
-2. Write `CTRL[0] = 1`.
-3. Poll `STATUS.done`.
-4. Read `DIGEST0` through `DIGEST7`.
+2. Write `CTRL[0] = 1` for the first block.
+3. Write `CTRL = 3` for each following block (optional).
+4. Poll `STATUS.done`.
+5. Repeat from step 3 for each following block (optional).
+6. Read `DIGEST0` through `DIGEST7`.
 
 ## Building Firmware
 After editing [main.c](firmware/main.c) as needed, run these commands from the
@@ -107,9 +109,7 @@ You can see the current tests in [the TESTING.md file](docs/TESTING.md).
 Specific performance data can be found in [PERFORMANCE.md](docs/PERFORMANCE.md).
 
 ## Limitations
-- Only one 512-bit block at a time.
-- Padding is done in software for now
-- Can't chain multiple blocks yet
+- Padding is done in software
 - No silicon measurement or tapeout yet
 
 

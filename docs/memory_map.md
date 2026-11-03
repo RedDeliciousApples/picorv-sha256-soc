@@ -6,7 +6,7 @@
 # SHA register table
 | Register | Purpose |
 |----------|----------------------:|
-|0x00 | CTRL |
+|0x00 | CTRL, where CTRL[0] = start and CTRL[1] = continue (0 = new message, 1 = chain onto the previous digest) |
 |0x04  | STATUS |
 |0x08-0x44  | BLOCK0-BLOCK15 |
 |0x80-0x9C  | DIGEST0-DIGEST7 |
@@ -15,7 +15,7 @@ Remember that the registers require AXI-Lite `WSTRB`. You must set the strobe bi
 
 # Block Word Ordering
 
-The SHA-256 accelerator accepts one 512-bit message block as input, and it's then divided into 16 registers (`BLOCK0` through `BLOCK15`).
+The SHA-256 accelerator divides the messages into 512-bit message blocks as input, and it's then divided into 16 registers (`BLOCK0` through `BLOCK15`).
 
 Internally, the registers are organized in the 512-bit block like this:
 
@@ -39,127 +39,3 @@ Internally, the registers are organized in the 512-bit block like this:
 | `BLOCK15` | `[31:0]` |
 
 Each 32-bit word uses big-endian order.
-
----
-
-# Example: SHA-256 of the Empty String
-
-The empty string (`""`) has a length of zero bytes. So the  512-bit message block, after padding, is:
-
-```text
-80000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-```
-
-The software writes the following values to the SHA block registers:
-
-| Register | Value |
-|----------|-----------:|
-| `BLOCK0`  | `0x80000000` |
-| `BLOCK1`  | `0x00000000` |
-| `BLOCK2`  | `0x00000000` |
-| `BLOCK3`  | `0x00000000` |
-| `BLOCK4`  | `0x00000000` |
-| `BLOCK5`  | `0x00000000` |
-| `BLOCK6`  | `0x00000000` |
-| `BLOCK7`  | `0x00000000` |
-| `BLOCK8`  | `0x00000000` |
-| `BLOCK9`  | `0x00000000` |
-| `BLOCK10` | `0x00000000` |
-| `BLOCK11` | `0x00000000` |
-| `BLOCK12` | `0x00000000` |
-| `BLOCK13` | `0x00000000` |
-| `BLOCK14` | `0x00000000` |
-| `BLOCK15` | `0x00000000` |
-
-Once all sixteen block registers have been written, software starts the accelerator by writing:
-
-```text
-CTRL = 0x00000001
-```
-
-The accelerator computes the following SHA-256 digest:
-
-```text
-e3b0c442
-98fc1c14
-9afbf4c8
-996fb924
-27ae41e4
-649b934c
-a495991b
-7852b855
-```
-
----
-
-# Example: SHA-256 of `"abc"`
-
-The ASCII string `"abc"` is padded into the following 512-bit block:
-
-```text
-61626380
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000018
-```
-
-The corresponding register values are:
-
-| Register | Value |
-|----------|-----------:|
-| `BLOCK0`  | `0x61626380` |
-| `BLOCK1`  | `0x00000000` |
-| `BLOCK2`  | `0x00000000` |
-| `BLOCK3`  | `0x00000000` |
-| `BLOCK4`  | `0x00000000` |
-| `BLOCK5`  | `0x00000000` |
-| `BLOCK6`  | `0x00000000` |
-| `BLOCK7`  | `0x00000000` |
-| `BLOCK8`  | `0x00000000` |
-| `BLOCK9`  | `0x00000000` |
-| `BLOCK10` | `0x00000000` |
-| `BLOCK11` | `0x00000000` |
-| `BLOCK12` | `0x00000000` |
-| `BLOCK13` | `0x00000000` |
-| `BLOCK14` | `0x00000000` |
-| `BLOCK15` | `0x00000018` |
-
-Expected SHA-256 digest:
-
-```text
-ba7816bf
-8f01cfea
-414140de
-5dae2223
-b00361a3
-96177a9c
-b410ff61
-f20015ad
-```
