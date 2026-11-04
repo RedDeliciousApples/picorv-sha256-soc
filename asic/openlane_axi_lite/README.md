@@ -59,9 +59,28 @@ After the core changes, the default antenna repair left 22 violations, which wer
 
 ## Run
 
-From the repo root inside the OpenLane Nix shell (run it with `nix-shell`):
+On the build machine, check out the commit to run. From the repo root:
 
 ```text
+nix-shell --pure ~/OpenLane/shell.nix
 openlane --pdk-root "$HOME/.volare" asic/openlane_axi_lite/config.json
 ```
 
+My installed OpenLane had no `--tag` option but YMMV. Each run's results go to  `asic/openlane_axi_lite/runs/RUN_<timestamp>/`.
+
+## Inspect results
+
+```text
+RUN_DIR=$(ls -d asic/openlane_axi_lite/runs/RUN_* | sort | tail -1)
+
+less $RUN_DIR/final/metrics.csv        # also metrics.json
+grep -R "Number of violations =" $RUN_DIR | tail -3    # last one should be 0
+less $RUN_DIR/*checkantennas-1/reports/antenna_summary.rpt
+less $RUN_DIR/flow.log                 # also warning.log, error.log
+```
+
+## View the layout
+
+```text
+klayout $RUN_DIR/final/gds/sha256_axi_lite.gds
+```
