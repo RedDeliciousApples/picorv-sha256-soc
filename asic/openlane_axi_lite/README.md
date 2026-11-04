@@ -14,6 +14,7 @@ The `sha256_block_top` config had 774 ports. That created a lot of I/O pressure 
 | Scheduler shift-register rewrite | +3.252 ns | +0.055 ns | 0 | 168 | 7 |
 | Slow-corner + post-route repair | +3.099 ns | +0.042 ns | 0 | 151 | 9 |
 | Final run with max wire length | +3.025 ns | +0.043 ns | 0 | 0 | 0 |
+| Chained and pipelined core, antenna margin 50 / iterations 8 | +3.914 ns | +0.103 ns | 0 | 0 | 0 |
 
 ## Initial floorplan
 
@@ -50,7 +51,11 @@ There were still about 160 slew violations and 9 max cap violations in the final
   
   `"DESIGN_REPAIR_MAX_WIRE_LENGTH": 300`
 
-  and the design was ready for signoff after that.
+  After adding chaining logic to the core, I ran it again with the same flow. More errors were found.
+
+## Antenna violations
+
+After the core changes, the default antenna repair left 22 violations, which were side-area violations on `met1` to `met3`. Raising `GRT_ANTENNA_MARGIN` to 30 and `GRT_ANTENNA_ITERS` to 5 reduce it to 15 nets with violations, and 50 / 8 gave 13 nets, using 596 diodes, about 0.7% more cell area. Those last settings are in `config.json`. Enabling `RUN_HEURISTIC_DIODE_INSERTION` brought it to 3 nets, but it added about 15,000 diodes and 20% more cell area, so I did not keep it.
 
 ## Run
 

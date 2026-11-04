@@ -7,20 +7,21 @@ This is a PicoRV32-based RV32I SoC with a memory-mapped SHA-256 peripheral, usin
 
 ## ASIC implementation result
 
-The AXI-Lite SHA-256 peripheral succesfully completed a 50 MHz OpenLane
+The accelerator alone succesfully completed a 50 MHz OpenLane
 implementation run, and met timing, using the SKY130A `sky130_fd_sc_hd` library.
 It uses a 600 x 600 µm die with a 580 x 580 µm core.
 
 | Check | Result |
 |---|---:|
-| Worst setup slack | +3.025 ns |
-| Worst hold slack | +0.043 ns |
+| Worst setup slack | +3.914 ns |
+| Worst hold slack | +0.103 ns |
 | Setup / hold violations | 0 / 0 |
 | Max slew / capacitance violations | 0 / 0 |
 | Routing, Magic, and KLayout DRC | Clean |
 | LVS | Clean |
+| Antenna violations | 13 nets |
 
-Notes and reproduction commands are in [asic/openlane_axi_lite](asic/openlane_axi_lite/README.md).
+Notes are in [asic/openlane_axi_lite](asic/openlane_axi_lite/README.md).
 
 ## Tapeout attempts
 The first OpenLane attempt is documented in
